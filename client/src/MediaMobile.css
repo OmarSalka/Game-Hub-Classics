@@ -1,0 +1,63 @@
+/* Mobile ========================*/
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .navbar ul a {
+    display: block;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    width: 100vw;
+    border-top: 1px solid #fff;
+  }
+  .navbar ul li:last-child {
+    border-bottom: 1px solid #fff;
+  }
+
+  /* Home =============== */
+  .backgroundPic {
+    height: 100%;
+  }
+
+  .games {
+    grid-template-columns: 1fr;
+  }
+
+  .games-item {
+    margin-bottom: 1rem;
+  }
+
+  /* TIC TAC TOE */
+  #tic-tac-toe {
+    height: 100%;
+  }
+
+  .game-space {
+    margin-bottom: 1rem;
+  }
+
+  .game-chat-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .tic-tac-toe-board {
+    margin: 2rem;
+  }
+
+  .box {
+    padding: 2rem;
+  }
+
+  .chat-box {
+    height: 50vh;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}

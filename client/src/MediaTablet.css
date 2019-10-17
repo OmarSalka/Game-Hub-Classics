@@ -1,0 +1,14 @@
+/*  Tablet ============= */
+@media (max-width: 800px) {
+  .game-chat-layout {
+    grid-template-columns: 1.5fr 1fr;
+  }
+
+  .tic-tac-toe-board {
+    margin: 3rem;
+  }
+
+  .box {
+    padding: 3rem;
+  }
+}
