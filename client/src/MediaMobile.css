@@ -1,7 +1,19 @@
 /* Mobile ========================*/
-@media (max-width: 700px) {
+@media (max-width: 700px), (max-height: 500px) {
+  .backgroundPic {
+    height: 100%;
+    background: #686767;
+  }
+
   .navbar {
     flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-bottom: 0;
+  }
+
+  .nav-backg-pic {
+    background: #333 url(./img/ryan-quintal-Q5H8WRXCZyw-unsplash.jpg) no-repeat
+      center center / cover;
   }
 
   .navbar ul {
@@ -14,20 +26,32 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     width: 100vw;
-    border-top: 1px solid #fff;
+    border-top: 5px solid #fff;
   }
   .navbar ul li:last-child {
-    border-bottom: 1px solid #fff;
+    border-bottom: 5px solid #fff;
+  }
+
+  /* Join =============== */
+  .btn-primary {
+    background: #333 url(./img/ryan-quintal-Q5H8WRXCZyw-unsplash.jpg) no-repeat
+      center center / cover;
+    color: #333;
+    font-weight: bolder;
   }
 
   /* Home =============== */
-  .backgroundPic {
-    height: 100%;
-  }
-  /* need to add condition in app.js to adjust backgroundPic to 100vh when the page is on tic tac toe, redux is the solution */
 
-  .games {
-    grid-template-columns: 1fr;
+  .img-hover-zoom {
+    width: 100%;
+  }
+
+  #home .primary-header {
+    font-size: 1.5rem;
+  }
+
+  .games h2 {
+    font-size: 1rem;
   }
 
   .games-item {

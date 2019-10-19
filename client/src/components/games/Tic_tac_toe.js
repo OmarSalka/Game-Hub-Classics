@@ -1,9 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import io from 'socket.io-client';
+import { connect } from 'react-redux';
 
-const Tic_tac_toe = () => {
+let socket;
+
+const Tic_tac_toe = ({ socketRouting: { name, room } }) => {
+  const [chatMessage, setChatMessage] = useState('');
+  const ENDPOINT = `:${process.env.PORT || 5000}`;
+
+  // if (!socket) {
+  //   socket = io(`:${process.env.PORT || 5000}`);
+  //   // to get back message sent by sender for it to get displayed on their screen
+  //   socket.on('chat message', msg => {
+  //     console.log(`back from server, ${msg}`);
+  //   });
+  // }
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    // console.log(socket);
+    socket.emit('join', { name, room }, () => {});
+
+    // when component unmounts, basically when user leaves
+    return () => {
+      socket.emit('disconnect');
+
+      socket.off();
+    };
+  }, [ENDPOINT, name, room]);
+
+  const onChange = e => {
+    setChatMessage(e.target.value);
+  };
   const onSubmit = e => {
     e.preventDefault();
+    console.log(name, room); //========================================
+    if (chatMessage) {
+      socket.emit('chat message', chatMessage);
+      console.log(chatMessage);
+      setChatMessage('');
+    }
   };
   return (
     <div id='tic-tac-toe'>
@@ -49,7 +86,12 @@ const Tic_tac_toe = () => {
               </p>
             </div>
             <form className='message-form' onSubmit={onSubmit}>
-              <textarea name='text-bar' cols='45'></textarea>
+              <textarea
+                name='text-bar'
+                cols='45'
+                value={chatMessage}
+                onChange={onChange}
+              ></textarea>
               <div className='send-button' onClick={onSubmit}>
                 <i className='far fa-paper-plane'></i>
               </div>
@@ -61,4 +103,8 @@ const Tic_tac_toe = () => {
   );
 };
 
-export default Tic_tac_toe;
+const mapStateToProps = state => ({
+  socketRouting: state.socketRouting
+});
+
+export default connect(mapStateToProps)(Tic_tac_toe);

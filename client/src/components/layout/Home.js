@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   return (
     <div id='home' className='container homeFlex screenSize'>
-      <h1>Play, chat, or do both!</h1>
+      <h1 className='primary-header'>Play, chat, or do both!</h1>
       <div className='games'>
         <div>
-          <Link to='/tic-tac-toe'>
+          <Link to='/Join'>
             <div className='img-hover-zoom'>
               <img src={tic_tac_toe_image} alt='Oops' />
             </div>
