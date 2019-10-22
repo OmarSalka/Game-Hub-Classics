@@ -33,21 +33,9 @@ const Join = ({ join }) => {
       <h1>Welcome!</h1>
       <form onSubmit={onSubmit} className='form-sm'>
         <label htmlFor='name'>Enter name:</label>
-        <input
-          type='text'
-          name='name'
-          value={name}
-          onChange={onChange}
-          placeholder='name'
-        />
+        <input type='text' name='name' value={name} onChange={onChange} />
         <label htmlFor='room'>Enter room:</label>
-        <input
-          type='text'
-          name='room'
-          value={room}
-          onChange={onChange}
-          placeholder='room'
-        />
+        <input type='text' name='room' value={room} onChange={onChange} />
         <Link onClick={onClick} to='/tic-tac-toe'>
           <input className='btn-primary' type='submit' value='Join' />
         </Link>

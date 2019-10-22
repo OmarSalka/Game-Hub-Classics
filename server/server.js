@@ -12,14 +12,17 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', socket => {
+  // when someone enters
   console.log('a user connected');
   socket.on('join', ({ name, room }) => {
     console.log(name, room);
   });
-  // socket.on('chat message', msg => {
-  //   console.log(`message: ${msg}`);
-  //   io.emit('chat message', msg);
-  // });
+  // when sending text
+  socket.on('chat message', msg => {
+    console.log(`message: ${msg}`);
+    io.emit('chat message', msg);
+  });
+  // when leaving
   socket.on('disconnect', () => {
     console.log('user has left');
   });

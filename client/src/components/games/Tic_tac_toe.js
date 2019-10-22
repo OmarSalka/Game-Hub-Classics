@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import ChatArea from '../chat/ChatArea';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
+import { add_message } from '../../actions/chatActions';
+import uuid from 'uuid';
 
 let socket;
 
-const Tic_tac_toe = ({ socketRouting: { name, room } }) => {
+const Tic_tac_toe = ({ socketRouting: { name, room }, add_message }) => {
   const [chatMessage, setChatMessage] = useState('');
   const ENDPOINT = `:${process.env.PORT || 5000}`;
 
@@ -21,24 +24,32 @@ const Tic_tac_toe = ({ socketRouting: { name, room } }) => {
     socket = io(ENDPOINT);
     // console.log(socket);
     socket.emit('join', { name, room }, () => {});
-
+    // socket.on('chat message', msg => {
+    //   console.log(`back from server, ${msg}`);
+    // });
     // when component unmounts, basically when user leaves
+  }, [ENDPOINT, name, room]);
+
+  useEffect(() => {
     return () => {
       socket.emit('disconnect');
 
       socket.off();
     };
-  }, [ENDPOINT, name, room]);
+    // eslint-disable-next-line
+  }, []);
 
   const onChange = e => {
     setChatMessage(e.target.value);
   };
+
   const onSubmit = e => {
     e.preventDefault();
     console.log(name, room); //========================================
     if (chatMessage) {
       socket.emit('chat message', chatMessage);
       console.log(chatMessage);
+      add_message(uuid.v4(), name, chatMessage);
       setChatMessage('');
     }
   };
@@ -79,11 +90,7 @@ const Tic_tac_toe = ({ socketRouting: { name, room } }) => {
           </div>
           <div className='chat-box'>
             <div className='chat-content'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum
-                quod voluptate accusamus tempora fugit aliquam odit sint
-                voluptatum a placeat?
-              </p>
+              <ChatArea />
             </div>
             <form className='message-form' onSubmit={onSubmit}>
               <textarea
@@ -107,4 +114,7 @@ const mapStateToProps = state => ({
   socketRouting: state.socketRouting
 });
 
-export default connect(mapStateToProps)(Tic_tac_toe);
+export default connect(
+  mapStateToProps,
+  { add_message }
+)(Tic_tac_toe);
