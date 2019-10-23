@@ -20,8 +20,8 @@ const App = () => {
             <Navbar />
             <Switch>
               <Home exact path='/' component={Home} />
-              <Join exact path='/Join' component={Join} />
-              <Tic_tac_toe exact path='/tic-tac-toe' component={Tic_tac_toe} />
+              <Join path='/Join' component={Join} />
+              <Tic_tac_toe path='/tic-tac-toe' component={Tic_tac_toe} />
             </Switch>
           </div>
         </div>

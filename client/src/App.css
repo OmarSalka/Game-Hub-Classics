@@ -341,8 +341,15 @@ input[type='submit']:hover {
 
 .chat-content {
   padding: 0.6rem;
-  height: 100%;
+  max-height: 55vh;
+  margin-bottom: 1rem;
   overflow: auto;
+}
+
+.message {
+  /* border-top: 1px solid grey; */
+  border-bottom: 1px solid grey;
+  padding: 0.5rem;
 }
 
 .message-form {

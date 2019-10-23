@@ -24,13 +24,19 @@ const Tic_tac_toe = ({ socketRouting: { name, room }, add_message }) => {
     socket = io(ENDPOINT);
     // console.log(socket);
     socket.emit('join', { name, room }, () => {});
-    // socket.on('chat message', msg => {
-    //   console.log(`back from server, ${msg}`);
-    // });
+
     // when component unmounts, basically when user leaves
+    return () => {
+      // console.log('unmounting...');
+      socket.emit('disconnect');
+
+      socket.off();
+    };
   }, [ENDPOINT, name, room]);
 
   useEffect(() => {
+    socket.on();
+
     return () => {
       socket.emit('disconnect');
 

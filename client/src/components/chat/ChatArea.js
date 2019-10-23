@@ -10,7 +10,11 @@ const ChatArea = ({ chat: { chatArray } }) => {
   return (
     <div className=''>
       {chatArray.map(message => (
-        <Chat key={message.id} messageInfo={message} />
+        <Chat
+          key={message.id}
+          messageInfo={message}
+          style={chatArray.length > 1 ? 'message' : null}
+        />
       ))}
       <Chat />
     </div>
