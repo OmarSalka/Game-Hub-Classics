@@ -3,6 +3,7 @@ const connectDB = require('./config/db');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const uuid = require('uuid');
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
@@ -13,25 +14,28 @@ app.get('/', (req, res) => {
   res.json({ msg: 'Backend yall' });
 });
 
-io.on('connection', socket => {
+io.on('connect', socket => {
   socket.on('join', ({ name, room }, callback) => {
+    console.log(name, room);
     const { error, user } = addUser({ id: socket.id, name, room });
+    console.log(`error: ${error}`);
 
     if (error) return callback(error);
 
+    socket.join(user.room);
+
     // user welcome message
     socket.emit('message', {
+      id: uuid.v4(),
       user: 'admin',
-      text: `${user.name}, welcome to room ${user.room}`
+      text: `${user.name}, welcome to "${user.room}"`
     });
     // broadcast to everyone but this user that he has entered the chat
-    socket.broadcast
-      .to(user.room)
-      .emit('message', {
-        user: 'admin',
-        text: `${user.name} has entered the room`
-      });
-    socket.join(user.room);
+    socket.broadcast.to(user.room).emit('message', {
+      id: uuid.v4(),
+      user: 'admin',
+      text: `${user.name} has entered the room`
+    });
 
     io.to(user.room).emit('room data', {
       room: user.room,
@@ -42,24 +46,29 @@ io.on('connection', socket => {
   });
 
   // when sending text
-  socket.on('send message', (msg, callback) => {
+  socket.on('send message', msg => {
     const user = getUser(socket.id);
+    console.log('send message:', user);
 
-    io.to(user.room).emit('message', { user: user.name, text: message });
+    io.to(user.room).emit('message', {
+      id: uuid.v4(),
+      user: user.name,
+      text: msg
+    });
     io.to(user.room).emit('room data', {
       room: user.room,
       users: getUsersInRoom(user.room)
     });
-
-    callback();
   });
 
   // when leaving
   socket.on('disconnect', () => {
+    console.log('disconnecting...');
     const user = removeUser(socket.id);
 
     if (user) {
       io.to(user.room).emit('message', {
+        id: uuid.v4(),
         user: 'admin',
         text: `${user.name} has left`
       });

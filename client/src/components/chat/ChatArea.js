@@ -5,14 +5,17 @@ import PropTypes from 'prop-types';
 
 const ChatArea = ({ chat: { chatArray } }) => {
   {
-    chatArray.length > 0 && console.log(chatArray);
+    chatArray.length > 0 &&
+      chatArray.map(message => {
+        console.log(message.id, message.user, message.text);
+      });
   }
   return (
     <div className=''>
       {chatArray.map(message => (
         <Chat
           key={message.id}
-          messageInfo={message}
+          messageData={message}
           style={chatArray.length > 1 ? 'message' : null}
         />
       ))}

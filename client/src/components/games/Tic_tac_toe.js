@@ -3,12 +3,18 @@ import ChatArea from '../chat/ChatArea';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
-import { add_message } from '../../actions/chatActions';
+import { display_message, send_message } from '../../actions/chatActions';
+import { disconnect_socket } from '../../actions/socketRoutingActions';
 import uuid from 'uuid';
 
 let socket;
 
-const Tic_tac_toe = ({ socketRouting: { name, room }, add_message }) => {
+const Tic_tac_toe = ({
+  socketRouting: { name, room },
+  display_message,
+  send_message,
+  disconnect_socket
+}) => {
   const [chatMessage, setChatMessage] = useState('');
   const ENDPOINT = `:${process.env.PORT || 5000}`;
 
@@ -21,44 +27,54 @@ const Tic_tac_toe = ({ socketRouting: { name, room }, add_message }) => {
   // }
 
   useEffect(() => {
-    socket = io(ENDPOINT);
-    // console.log(socket);
-    socket.emit('join', { name, room }, () => {});
+    if (!socket) {
+      socket = io(ENDPOINT);
+      console.log(socket);
+      console.log(name, room);
+      socket.emit('join', { name, room }, error => {
+        console.log(error);
+      });
 
-    // when component unmounts, basically when user leaves
-    return () => {
-      // console.log('unmounting...');
-      socket.emit('disconnect');
-
-      socket.off();
-    };
+      display_message(socket);
+      // when component unmounts, basically when user leaves
+      return () => {
+        console.log(socket);
+        disconnect_socket(socket);
+      };
+    }
   }, [ENDPOINT, name, room]);
 
-  useEffect(() => {
-    socket.on();
+  // useEffect(() => {
+  //   if (!socket) {
+  //     display_message(socket);
+  //     // socket.on('message', {user, text});
 
-    return () => {
-      socket.emit('disconnect');
+  //     return () => {
+  //       disconnect_socket(socket);
+  //       // socket.emit('disconnect');
 
-      socket.off();
-    };
-    // eslint-disable-next-line
-  }, []);
+  //       // socket.off();
+  //     };
+  //   }
+  //   // eslint-disable-next-line
+  // }, []);
 
   const onChange = e => {
     setChatMessage(e.target.value);
   };
 
-  const onSubmit = e => {
+  const sendMessage = e => {
     e.preventDefault();
     console.log(name, room); //========================================
     if (chatMessage) {
-      socket.emit('chat message', chatMessage);
-      console.log(chatMessage);
-      add_message(uuid.v4(), name, chatMessage);
+      // send_message(socket, chatMessage);
+      socket.emit('send message', chatMessage);
+      // console.log(chatMessage);
+      // add_message(uuid.v4(), name, chatMessage);
       setChatMessage('');
     }
   };
+
   return (
     <div id='tic-tac-toe'>
       <div className='btn leave' style={{ padding: '0rem' }}>
@@ -98,14 +114,14 @@ const Tic_tac_toe = ({ socketRouting: { name, room }, add_message }) => {
             <div className='chat-content'>
               <ChatArea />
             </div>
-            <form className='message-form' onSubmit={onSubmit}>
+            <form className='message-form' onSubmit={sendMessage}>
               <textarea
                 name='text-bar'
                 cols='45'
                 value={chatMessage}
                 onChange={onChange}
               ></textarea>
-              <div className='send-button' onClick={onSubmit}>
+              <div className='send-button' onClick={sendMessage}>
                 <i className='far fa-paper-plane'></i>
               </div>
             </form>
@@ -122,5 +138,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { add_message }
+  { display_message, send_message, disconnect_socket }
 )(Tic_tac_toe);

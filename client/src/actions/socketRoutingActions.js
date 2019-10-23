@@ -6,3 +6,8 @@ export const join = formData => {
     payload: formData
   };
 };
+
+export const disconnect_socket = socket => {
+  socket.emit('disconnect');
+  socket.off();
+};

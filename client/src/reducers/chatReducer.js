@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from '../actions/types';
+import { DISPLAY_MESSAGE } from '../actions/types';
 
 const initialState = {
   chatArray: []
@@ -6,15 +6,27 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ADD_MESSAGE:
+    // case ADD_MESSAGE:
+    //   return {
+    //     ...state,
+    //     chatArray: [
+    //       ...state.chatArray,
+    //       {
+    //         id: action.payload.id,
+    //         name: action.payload.name,
+    //         message: action.payload.message
+    //       }
+    //     ]
+    //   };
+    case DISPLAY_MESSAGE:
       return {
         ...state,
         chatArray: [
           ...state.chatArray,
           {
             id: action.payload.id,
-            name: action.payload.name,
-            message: action.payload.message
+            user: action.payload.user,
+            text: action.payload.text
           }
         ]
       };
