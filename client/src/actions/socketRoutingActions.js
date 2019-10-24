@@ -7,7 +7,7 @@ export const join = formData => {
   };
 };
 
-export const disconnect_socket = socket => {
+export const disconnect_socket = socket => dispatch => {
   socket.emit('disconnect');
   socket.off();
 };

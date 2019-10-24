@@ -1,6 +1,7 @@
 import React from 'react';
 import Chat from './Chat';
 import { connect } from 'react-redux';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import PropTypes from 'prop-types';
 
 const ChatArea = ({ chat: { chatArray } }) => {
@@ -12,14 +13,16 @@ const ChatArea = ({ chat: { chatArray } }) => {
   }
   return (
     <div className=''>
-      {chatArray.map(message => (
-        <Chat
-          key={message.id}
-          messageData={message}
-          style={chatArray.length > 1 ? 'message' : null}
-        />
-      ))}
-      <Chat />
+      <ScrollToBottom>
+        {chatArray.map(message => (
+          <Chat
+            key={message.id}
+            messageData={message}
+            style={chatArray.length > 1 ? 'message' : null}
+          />
+        ))}
+      </ScrollToBottom>
+      {/* <Chat /> */}
     </div>
   );
 };

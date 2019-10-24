@@ -28,13 +28,14 @@ io.on('connect', socket => {
     socket.emit('message', {
       id: uuid.v4(),
       user: 'admin',
-      text: `${user.name}, welcome to "${user.room}"`
+      // text: `${user.name}, welcome to "${user.room}"`
+      text: `Welcome, ${user.name}`
     });
     // broadcast to everyone but this user that he has entered the chat
     socket.broadcast.to(user.room).emit('message', {
       id: uuid.v4(),
       user: 'admin',
-      text: `${user.name} has entered the room`
+      text: `${user.name} just joined`
     });
 
     io.to(user.room).emit('room data', {
@@ -70,7 +71,7 @@ io.on('connect', socket => {
       io.to(user.room).emit('message', {
         id: uuid.v4(),
         user: 'admin',
-        text: `${user.name} has left`
+        text: `${user.name} just left`
       });
     }
   });

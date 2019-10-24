@@ -111,6 +111,9 @@ const Tic_tac_toe = ({
             </div>
           </div>
           <div className='chat-box'>
+            <div className='live-users'>
+              <h1>online</h1>
+            </div>
             <div className='chat-content'>
               <ChatArea />
             </div>

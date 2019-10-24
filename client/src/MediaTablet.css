@@ -1,5 +1,5 @@
 /*  Tablet ============= */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .game-chat-layout {
     grid-template-columns: 1.5fr 1fr;
   }
@@ -10,5 +10,22 @@
 
   .box {
     padding: 3rem;
+  }
+
+  .chat-content {
+    /* height: 27vh; */
+  }
+}
+
+/* Unique to Ipad only*/
+@media (max-width: 900px) {
+  .chat-content {
+    /* height: 36vh; */
+  }
+}
+
+@media (max-height: 770px) {
+  .chat-content {
+    /* height: 50vh; */
   }
 }
