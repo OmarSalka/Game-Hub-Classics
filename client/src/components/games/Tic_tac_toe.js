@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import ChatArea from '../chat/ChatArea';
 import { Link } from 'react-router-dom';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { display_message, send_message } from '../../actions/chatActions';
 import { disconnect_socket } from '../../actions/socketRoutingActions';
-import uuid from 'uuid';
+// import uuid from 'uuid';
 
-let socket;
+// let socket;
 
 const Tic_tac_toe = ({
-  socketRouting: { name, room },
+  socketRouting: { name, room, socket },
   display_message,
-  send_message,
   disconnect_socket
 }) => {
   const [chatMessage, setChatMessage] = useState('');
-  const ENDPOINT = `:${process.env.PORT || 5000}`;
+  // const ENDPOINT = `:${process.env.PORT || 5000}`;
 
   // if (!socket) {
   //   socket = io(`:${process.env.PORT || 5000}`);
@@ -27,13 +26,13 @@ const Tic_tac_toe = ({
   // }
 
   useEffect(() => {
-    if (!socket) {
-      socket = io(ENDPOINT);
+    if (socket) {
+      // socket = io(ENDPOINT);
       console.log(socket);
       console.log(name, room);
-      socket.emit('join', { name, room }, error => {
-        console.log(error);
-      });
+      // socket.emit('join', { name, room }, error => {
+      //   console.log(error);
+      // });
 
       display_message(socket);
       // when component unmounts, basically when user leaves
@@ -42,7 +41,9 @@ const Tic_tac_toe = ({
         disconnect_socket(socket);
       };
     }
-  }, [ENDPOINT, name, room]);
+    // eslint-disable-next-line
+  }, [socket, name, room]);
+  // }, [ENDPOINT, name, room]);
 
   // useEffect(() => {
   //   if (!socket) {

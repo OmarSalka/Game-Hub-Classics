@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import './App.css';
 import './MediaTablet.css';
 import './MediaMobile.css';
@@ -7,6 +7,9 @@ import Home from './components/layout/Home';
 import Join from './components/popups/Join';
 import Tic_tac_toe from './components/games/Tic_tac_toe';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import PageNotFound from './components/pageNotFound/PageNotFound';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -20,8 +23,9 @@ const App = () => {
             <Navbar />
             <Switch>
               <Home exact path='/' component={Home} />
-              <Join path='/Join' component={Join} />
-              <Tic_tac_toe path='/tic-tac-toe' component={Tic_tac_toe} />
+              <Route path='/Join' component={Join} />
+              <PrivateRoute path='/tic-tac-toe' component={Tic_tac_toe} />
+              <Route component={PageNotFound} />
             </Switch>
           </div>
         </div>

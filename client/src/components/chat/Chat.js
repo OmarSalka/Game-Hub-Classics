@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Chat = ({ messageData, style, socketRouting: { name } }) => {
+const Chat = ({ messageData, socketRouting: { name } }) => {
   {
     messageData &&
       console.log('messageData.user:', messageData.user, 'name', name);
