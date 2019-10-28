@@ -1,20 +1,23 @@
-import { JOIN, CONNECTION_SUCCESS_TTT, CONNECTION_SUCCESS_DB } from './types';
+import { JOIN, T3_JOIN_SUCCESS, DB_JOIN_SUCCESS, DISCONNECT } from './types';
 import { errorLogger } from './alertActions';
+import { display_message } from './chatActions';
+import { delete_chat } from './chatActions';
 
 export const join = (joinData, game) => dispatch => {
   const { name, room, socket } = joinData;
+
   socket.emit('join', { name, room }, error => {
-    if (!error && game === 'tic_tac_toe') {
-      dispatch({ type: CONNECTION_SUCCESS_TTT });
-    } else if (!error && game === 'dots_boxes') {
-      dispatch({ type: CONNECTION_SUCCESS_DB });
+    if (error) {
+      dispatch(errorLogger({ type: 'danger', msg: error }));
+    } else {
+      {
+        game === 'tic_tac_toe'
+          ? dispatch({ type: T3_JOIN_SUCCESS })
+          : game === 'dots_boxes' && dispatch({ type: DB_JOIN_SUCCESS });
+      }
+      // console.log('hreere: ', socket);
+      dispatch(display_message(socket));
     }
-    dispatch(errorLogger({ type: 'danger', msg: error }));
-    // dispatch({
-    //   type:ERROR,
-    //   payload: error
-    // })
-    // console.log(error);
   });
 
   dispatch({
@@ -25,4 +28,8 @@ export const join = (joinData, game) => dispatch => {
 
 export const disconnect_socket = socket => dispatch => {
   socket.disconnect();
+  dispatch({
+    type: DISCONNECT
+  });
+  dispatch(delete_chat());
 };

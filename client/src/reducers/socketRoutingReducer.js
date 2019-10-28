@@ -1,7 +1,11 @@
-import { JOIN, CONNECTION_SUCCESS_TTT } from '../actions/types';
+import {
+  JOIN,
+  T3_JOIN_SUCCESS,
+  DB_JOIN_SUCCESS,
+  DISCONNECT
+} from '../actions/types';
 
 const initialState = {
-  is_Authenticated: false,
   tic_tac_toe: false,
   dots_boxes: false,
   is_Authenticated: false,
@@ -19,12 +23,29 @@ export default (state = initialState, action) => {
         room: action.payload.room,
         socket: action.payload.socket
       };
-    case CONNECTION_SUCCESS_TTT:
+    case T3_JOIN_SUCCESS:
       return {
         ...state,
-        is_Authenticated_ttt: true,
-        tic_tact_toe: true
+        is_Authenticated: true,
+        tic_tac_toe: true
       };
+    case DB_JOIN_SUCCESS:
+      return {
+        ...state,
+        is_Authenticated: true,
+        tic_tac_toe: true
+      };
+    case DISCONNECT:
+      return {
+        ...state,
+        is_Authenticated: false,
+        tic_tac_toe: false,
+        dots_boxes: false,
+        name: null,
+        room: null,
+        socket: null
+      };
+
     default:
       return state;
   }

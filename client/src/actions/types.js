@@ -1,9 +1,14 @@
 export const JOIN = 'JOIN';
-export const CONNECTION_SUCCESS_TTT = 'CONNECTION_SUCCESS_TTT';
-export const CONNECTION_SUCCESS_DB = 'CONNECTION_SUCCESS_DB';
+export const T3_JOIN_SUCCESS = 'T3_JOIN_SUCCESS';
+export const DB_JOIN_SUCCESS = 'DB_JOIN_SUCCESS';
+
+export const DISCONNECT = 'DISCONNECT';
+
 export const ERROR = 'ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const DELETE_CHAT = 'DELETE_CHAT';
+
 export const DISPLAY_MESSAGE = 'DISPLAY_MESSAGE';
 
 export const TTTBOX_CLICKED = 'TTTBOX_CLICKED';

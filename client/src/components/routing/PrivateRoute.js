@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const PrivateRoute = ({
   component: Component,
-  socketRouting: { isAuthenticated },
+  socketRouting: { is_Authenticated },
   // socketRouting: { isAuthenticated, loading },
   ...rest
 }) => {
@@ -14,7 +14,7 @@ const PrivateRoute = ({
       {...rest}
       render={props =>
         // !isAuthenticated && !loading ? (
-        !isAuthenticated ? <Redirect to='/join' /> : <Component {...props} />
+        !is_Authenticated ? <Redirect to='/' /> : <Component {...props} />
       }
     />
   );

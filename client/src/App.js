@@ -17,19 +17,19 @@ import store from './store';
 const App = () => {
   return (
     <Provider store={store}>
-      <Router>
-        <div className='backgroundPic'>
-          <div className='overlay'>
+      <div className='backgroundPic'>
+        <div className='overlay'>
+          <Router>
             <Navbar />
             <Switch>
               <Home exact path='/' component={Home} />
-              <Route path='/Join' component={Join} />
+              <Route path={['/join/t3', '/join/db']} component={Join} />
               <PrivateRoute path='/tic-tac-toe' component={Tic_tac_toe} />
               <Route component={PageNotFound} />
             </Switch>
-          </div>
+          </Router>
         </div>
-      </Router>
+      </div>
     </Provider>
   );
 };

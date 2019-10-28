@@ -9,7 +9,7 @@ const Home = () => {
       <h1 className='primary-header'>Play, chat, or do both!</h1>
       <div className='games'>
         <div>
-          <Link to='/Join'>
+          <Link to='/join/t3'>
             <div className='img-hover-zoom'>
               <img src={tic_tac_toe_image} alt='Oops' />
             </div>

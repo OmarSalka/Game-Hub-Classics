@@ -1,4 +1,4 @@
-import { DISPLAY_MESSAGE } from '../actions/types';
+import { DISPLAY_MESSAGE, DELETE_CHAT } from '../actions/types';
 
 const initialState = {
   chatArray: []
@@ -6,18 +6,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // case ADD_MESSAGE:
-    //   return {
-    //     ...state,
-    //     chatArray: [
-    //       ...state.chatArray,
-    //       {
-    //         id: action.payload.id,
-    //         name: action.payload.name,
-    //         message: action.payload.message
-    //       }
-    //     ]
-    //   };
     case DISPLAY_MESSAGE:
       return {
         ...state,
@@ -29,6 +17,11 @@ export default (state = initialState, action) => {
             text: action.payload.text
           }
         ]
+      };
+    case DELETE_CHAT:
+      return {
+        ...state,
+        chatArray: []
       };
     default:
       return state;

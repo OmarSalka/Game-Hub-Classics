@@ -1,13 +1,7 @@
-import { DISPLAY_MESSAGE } from './types';
-
-// export const add_message = (id, name, message) => {
-//   return {
-//     type: ADD_MESSAGE,
-//     payload: { id: id, name: name, message: message }
-//   };
-// };
+import { DISPLAY_MESSAGE, DELETE_CHAT } from './types';
 
 export const display_message = socket => dispatch => {
+  console.log('chat action here!');
   socket.on('message', message => {
     console.log(message);
     const { id, user, text } = message;
@@ -20,4 +14,10 @@ export const display_message = socket => dispatch => {
 
 export const send_message = (socket, chatMessage) => {
   socket.emit('send message', chatMessage);
+};
+
+export const delete_chat = () => {
+  return {
+    type: DELETE_CHAT
+  };
 };

@@ -5,12 +5,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { display_message, send_message } from '../../actions/chatActions';
 import { disconnect_socket } from '../../actions/socketRoutingActions';
-// import uuid from 'uuid';
 
 // let socket;
 
 const Tic_tac_toe = ({
-  socketRouting: { name, room, socket },
+  socketRouting: { name, room, socket, is_Authenticated, tic_tac_toe },
   display_message,
   disconnect_socket
 }) => {
@@ -28,37 +27,16 @@ const Tic_tac_toe = ({
   useEffect(() => {
     if (socket) {
       // socket = io(ENDPOINT);
-      console.log(socket);
-      console.log(name, room);
-      // socket.emit('join', { name, room }, error => {
-      //   console.log(error);
-      // });
 
-      display_message(socket);
+      // display_message(socket);
+
       // when component unmounts, basically when user leaves
       return () => {
-        console.log(socket);
         disconnect_socket(socket);
       };
     }
     // eslint-disable-next-line
   }, [socket, name, room]);
-  // }, [ENDPOINT, name, room]);
-
-  // useEffect(() => {
-  //   if (!socket) {
-  //     display_message(socket);
-  //     // socket.on('message', {user, text});
-
-  //     return () => {
-  //       disconnect_socket(socket);
-  //       // socket.emit('disconnect');
-
-  //       // socket.off();
-  //     };
-  //   }
-  //   // eslint-disable-next-line
-  // }, []);
 
   const onChange = e => {
     setChatMessage(e.target.value);
@@ -68,10 +46,7 @@ const Tic_tac_toe = ({
     e.preventDefault();
     console.log(name, room); //========================================
     if (chatMessage) {
-      // send_message(socket, chatMessage);
       socket.emit('send message', chatMessage);
-      // console.log(chatMessage);
-      // add_message(uuid.v4(), name, chatMessage);
       setChatMessage('');
     }
   };
