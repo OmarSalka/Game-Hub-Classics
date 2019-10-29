@@ -174,7 +174,6 @@ input[type='submit']:hover {
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> HOME <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
 
 .overlay {
-  /* Overlay */
   background-color: rgba(0, 0, 0, 0.5);
   height: 100%;
 }
