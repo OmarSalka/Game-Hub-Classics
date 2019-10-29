@@ -1,9 +1,7 @@
 import { DISPLAY_MESSAGE, DELETE_CHAT } from './types';
 
 export const display_message = socket => dispatch => {
-  console.log('chat action here!');
   socket.on('message', message => {
-    console.log(message);
     const { id, user, text } = message;
     dispatch({
       type: DISPLAY_MESSAGE,

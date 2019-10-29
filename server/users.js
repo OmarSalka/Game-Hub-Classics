@@ -7,9 +7,11 @@ const addUser = ({ id, name, room }) => {
   const existingUser = users.find(
     user => user.room === room && user.name === name
   );
+  const numberOfUsers = users.length;
 
   if (!name || !room) return { error: 'Both UserName and Room are required' };
   if (existingUser) return { error: 'Username taken' };
+  if (numberOfUsers === 2) return { error: 'Room at full capacity' };
 
   const user = { id, name, room };
 
@@ -20,7 +22,6 @@ const addUser = ({ id, name, room }) => {
 
 const removeUser = id => {
   const index = users.findIndex(user => user.id === id);
-
   if (index !== -1) return users.splice(index, 1)[0]; //test this later
 };
 

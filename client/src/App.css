@@ -278,7 +278,7 @@ input[type='submit']:hover {
   justify-content: space-evenly;
 }
 .score-box p {
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 
 .tic-tac-toe-board {
@@ -335,9 +335,6 @@ input[type='submit']:hover {
   max-height: 65vh;
   display: grid;
   grid-template-rows: 20% 70% 10%;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex-end; */
   background: #333;
   padding: 1.5rem;
   border-top-right-radius: 10px;
@@ -350,17 +347,8 @@ input[type='submit']:hover {
 
 .chat-content {
   padding: 0.6rem;
-  /* max-height: 100%; */
   margin-bottom: 1rem;
   overflow-y: auto;
-  overflow-x: visible;
-}
-
-.message {
-  /* border-top: 1px solid grey; */
-  border: 1px solid grey;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
 }
 
 .wordwrap {
@@ -370,54 +358,66 @@ input[type='submit']:hover {
   word-wrap: break-word; /* IE */
 }
 
-.admin-message {
+.message {
   display: flex;
-  justify-content: center;
   margin-bottom: 0.5rem;
 }
-.admin-message p {
+.message .chat-msg {
+  border-radius: 10px;
+  padding: 0.1rem 0.4rem;
+}
+
+/* p {
+  color: #0deb0d;
+} */
+
+.admin-message {
+  justify-content: center;
+}
+.admin-message .chat-msg {
   text-align: center;
   border-radius: 10px;
   background: grey;
-  /* color: #333; */
-  padding: 0.2rem 0.4rem;
   opacity: 0.5;
 }
 
 .user-message {
-  display: flex;
   justify-content: flex-end;
-  margin-bottom: 0.5rem;
 }
-
-.user-message p {
-  /* text-align: center; */
+.user-message .chat-msg {
   border-radius: 10px;
   background: red;
-  padding: 0.2rem 0.4rem;
   opacity: 0.75;
   max-width: 12rem;
 }
 
 .other-message {
-  display: flex;
   justify-content: flex-start;
-  margin-bottom: 0.5rem;
 }
-
-.other-message p {
-  /* text-align: center; */
+.other-message .chat-msg {
   border-radius: 10px;
   background: #f4f4f4;
   color: #333;
-  padding: 0.2rem 0.4rem;
   opacity: 0.8;
   max-width: 12rem;
+}
+
+.other-msg-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.other-name {
+  font-weight: bold;
 }
 
 .message-form {
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .message-form textarea {
@@ -437,9 +437,7 @@ input[type='submit']:hover {
 ::-webkit-scrollbar {
   margin: 1rem;
   border-radius: 5px;
-  /* background: rgb(109, 107, 107); */
   height: 4px;
-  /* width: 14px; */
   width: 4px;
   cursor: pointer;
 }

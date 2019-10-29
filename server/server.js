@@ -5,7 +5,10 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const uuid = require('uuid');
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
+const t3_chat = require('./t3_chat');
+
+// const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
+const userMethods = require('./users');
 
 // Connect to database
 connectDB();
@@ -14,68 +17,70 @@ app.get('/', (req, res) => {
   res.json({ msg: 'Backend yall' });
 });
 
-io.on('connect', socket => {
-  socket.on('join', ({ name, room }, callback) => {
-    console.log(name, room);
-    const { error, user } = addUser({ id: socket.id, name, room });
-    console.log(`error: ${error}`);
+t3_chat(io, uuid, userMethods);
 
-    if (error) return callback(error);
+// io.on('connect', socket => {
+//   socket.on('join', ({ name, room }, callback) => {
+//     console.log(name, room);
+//     const { error, user } = addUser({ id: socket.id, name, room });
+//     console.log(`error: ${error}`);
 
-    socket.join(user.room);
+//     if (error) return callback(error);
 
-    // user welcome message
-    socket.emit('message', {
-      id: uuid.v4(),
-      user: 'admin',
-      // text: `${user.name}, welcome to "${user.room}"`
-      text: `Welcome, ${user.name}`
-    });
-    // broadcast to everyone but this user that he has entered the chat
-    socket.broadcast.to(user.room).emit('message', {
-      id: uuid.v4(),
-      user: 'admin',
-      text: `${user.name} just joined`
-    });
+//     socket.join(user.room);
 
-    io.to(user.room).emit('room data', {
-      room: user.room,
-      users: getUsersInRoom(user.room)
-    });
+//     // user welcome message
+//     socket.emit('message', {
+//       id: uuid.v4(),
+//       user: 'admin',
+//       // text: `${user.name}, welcome to "${user.room}"`
+//       text: `Welcome, ${user.name}`
+//     });
+//     // broadcast to everyone but this user that he has entered the chat
+//     socket.broadcast.to(user.room).emit('message', {
+//       id: uuid.v4(),
+//       user: 'admin',
+//       text: `${user.name} just joined`
+//     });
 
-    callback();
-  });
+//     io.to(user.room).emit('room data', {
+//       room: user.room,
+//       users: getUsersInRoom(user.room)
+//     });
 
-  // when sending text
-  socket.on('send message', msg => {
-    const user = getUser(socket.id);
-    console.log('send message:', user);
+//     callback();
+//   });
 
-    io.to(user.room).emit('message', {
-      id: uuid.v4(),
-      user: user.name,
-      text: msg
-    });
-    io.to(user.room).emit('room data', {
-      room: user.room,
-      users: getUsersInRoom(user.room)
-    });
-  });
+//   // when sending text
+//   socket.on('send message', msg => {
+//     const user = getUser(socket.id);
+//     console.log('send message:', user);
 
-  // when leaving
-  socket.on('disconnect', () => {
-    console.log('disconnecting...');
-    const user = removeUser(socket.id);
+//     io.to(user.room).emit('message', {
+//       id: uuid.v4(),
+//       user: user.name,
+//       text: msg
+//     });
+//     io.to(user.room).emit('room data', {
+//       room: user.room,
+//       users: getUsersInRoom(user.room)
+//     });
+//   });
 
-    if (user) {
-      io.to(user.room).emit('message', {
-        id: uuid.v4(),
-        user: 'admin',
-        text: `${user.name} just left`
-      });
-    }
-  });
-});
+//   // when leaving
+//   socket.on('disconnect', () => {
+//     console.log('server socket disconnecting...');
+//     const user = removeUser(socket.id);
+
+//     if (user) {
+//       io.to(user.room).emit('message', {
+//         id: uuid.v4(),
+//         user: 'admin',
+//         text: `${user.name} just left`
+//       });
+//     }
+//   });
+// });
 
 const PORT = process.env.PORT || 5000;
 

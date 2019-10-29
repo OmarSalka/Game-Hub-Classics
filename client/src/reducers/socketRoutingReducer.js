@@ -2,7 +2,8 @@ import {
   JOIN,
   T3_JOIN_SUCCESS,
   DB_JOIN_SUCCESS,
-  DISCONNECT
+  DISCONNECT,
+  GET_ROOM_DATA
 } from '../actions/types';
 
 const initialState = {
@@ -11,7 +12,9 @@ const initialState = {
   is_Authenticated: false,
   name: null,
   room: null,
-  socket: null
+  socket: null,
+  users: [],
+  oponent: null
 };
 
 export default (state = initialState, action) => {
@@ -44,6 +47,12 @@ export default (state = initialState, action) => {
         name: null,
         room: null,
         socket: null
+      };
+    case GET_ROOM_DATA:
+      return {
+        ...state,
+        users: action.payload.users,
+        oponent: action.payload.oponent
       };
 
     default:

@@ -5,12 +5,13 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import PropTypes from 'prop-types';
 
 const ChatArea = ({ chat: { chatArray } }) => {
-  console.log(chatArray);
   return (
     <ScrollToBottom>
-      {chatArray.map(message => (
-        <Chat key={message.id} messageData={message} />
-      ))}
+      <div className='chat-content'>
+        {chatArray.map(message => (
+          <Chat key={message.id} messageData={message} />
+        ))}
+      </div>
     </ScrollToBottom>
   );
 };

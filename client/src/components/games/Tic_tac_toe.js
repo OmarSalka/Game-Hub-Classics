@@ -1,55 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import ChatArea from '../chat/ChatArea';
+import ChatForm from '../chat/ChatForm';
+import OnlinePlayers from '../roomData/OnlinePlayers';
 import { Link } from 'react-router-dom';
-// import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { display_message, send_message } from '../../actions/chatActions';
 import { disconnect_socket } from '../../actions/socketRoutingActions';
 
-// let socket;
-
 const Tic_tac_toe = ({
-  socketRouting: { name, room, socket, is_Authenticated, tic_tac_toe },
+  socketRouting: { oponent, name, socket, is_Authenticated, tic_tac_toe },
   display_message,
   disconnect_socket
 }) => {
-  const [chatMessage, setChatMessage] = useState('');
-  // const ENDPOINT = `:${process.env.PORT || 5000}`;
-
-  // if (!socket) {
-  //   socket = io(`:${process.env.PORT || 5000}`);
-  //   // to get back message sent by sender for it to get displayed on their screen
-  //   socket.on('chat message', msg => {
-  //     console.log(`back from server, ${msg}`);
-  //   });
-  // }
-
   useEffect(() => {
-    if (socket) {
-      // socket = io(ENDPOINT);
+    display_message(socket);
 
-      // display_message(socket);
-
-      // when component unmounts, basically when user leaves
-      return () => {
-        disconnect_socket(socket);
-      };
-    }
+    return () => {
+      disconnect_socket(socket);
+    };
     // eslint-disable-next-line
-  }, [socket, name, room]);
-
-  const onChange = e => {
-    setChatMessage(e.target.value);
-  };
-
-  const sendMessage = e => {
-    e.preventDefault();
-    console.log(name, room); //========================================
-    if (chatMessage) {
-      socket.emit('send message', chatMessage);
-      setChatMessage('');
-    }
-  };
+  }, [socket]);
 
   return (
     <div id='tic-tac-toe'>
@@ -68,10 +38,13 @@ const Tic_tac_toe = ({
           <div className='game-box'>
             <div className='score-box'>
               <p>
-                <span className='player-name'>Player1:</span> 0
+                <span className='player-name'>{name}:</span> 0
               </p>
               <p>
-                <span className='player-name'>Player2:</span> 0
+                <span className='player-name'>
+                  {oponent ? oponent : 'Oponent'}:
+                </span>{' '}
+                0
               </p>
             </div>
             <div className='tic-tac-toe-board'>
@@ -87,23 +60,9 @@ const Tic_tac_toe = ({
             </div>
           </div>
           <div className='chat-box'>
-            <div className='live-users'>
-              <h1>online</h1>
-            </div>
-            <div className='chat-content'>
-              <ChatArea />
-            </div>
-            <form className='message-form' onSubmit={sendMessage}>
-              <textarea
-                name='text-bar'
-                cols='45'
-                value={chatMessage}
-                onChange={onChange}
-              ></textarea>
-              <div className='send-button' onClick={sendMessage}>
-                <i className='far fa-paper-plane'></i>
-              </div>
-            </form>
+            <OnlinePlayers />
+            <ChatArea />
+            <ChatForm />
           </div>
         </div>
       </div>

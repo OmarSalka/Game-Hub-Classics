@@ -1,63 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Chat = ({ messageData, socketRouting: { name } }) => {
-  {
-    messageData &&
-      console.log('messageData.user:', messageData.user, 'name', name);
-  }
+const Chat = ({ messageData: { user, text }, socketRouting: { name } }) => {
+  const _user = user;
+  const _name = name;
+
+  const style_generator = () => {
+    if (_user && _name) {
+      if (_user === 'admin') return 'admin-message';
+      if (_name === _user) return 'user-message';
+      if (_name !== _user) return 'other-message';
+    }
+  };
+
+  const messageDisplay = `message ${style_generator()}`;
+
   return (
-    // <div>
-    //   {messageData && messageData.user.trim().toLowerCase() === 'admin' ? (
-    //     <div className='admin-message'>
-    //       <p>{messageData && messageData.text}</p>
-    //     </div>
-    //   ) : messageData &&
-    //     name.trim().toLowerCase() === messageData.user.trim().toLowerCase() ? (
-    //     <div className='user-message'>
-    //       <p>{messageData && messageData.text}</p>
-    //     </div>
-    //   ) : (
-    //     messageData &&
-    //     name.trim().toLowerCase() === messageData.user.trim().toLowerCase() && (
-    //       <div className='other-message'>
-    //         <p>{messageData && messageData.text}</p>
-    //       </div>
-    //     )
-    //   )}
-    // </div>
-
-    <div
-    // style={
-    //   messageData &&
-    //   name.trim().toLowerCase() === messageData.user.trim().toLowerCase()
-    //     ? { textAlign: 'right' }
-    //     : { textAlign: 'left' }
-    // }
-    >
-      <div
-        className={
-          messageData && messageData.user.trim().toLowerCase() === 'admin'
-            ? 'admin-message'
-            : messageData &&
-              name.trim().toLowerCase() ===
-                messageData.user.trim().toLowerCase()
-            ? 'user-message'
-            : messageData &&
-              name.trim().toLowerCase() !==
-                messageData.user.trim().toLowerCase() &&
-              'other-message'
-        }
-      >
-        <p className='wordwrap'>{messageData && messageData.text}</p>
+    <div>
+      <div className={messageDisplay}>
+        <p className='chat-msg wordwrap'>{text.trim()}</p>
       </div>
-
-      {/* <div style={{ height: '100%' }}>
-        <p className={style}>
-          <strong>{messageData && `${messageData.user}: `} </strong>
-          {messageData && messageData.text}
-        </p>
-      </div> */}
     </div>
   );
 };

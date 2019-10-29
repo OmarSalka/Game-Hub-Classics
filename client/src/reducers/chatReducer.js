@@ -1,4 +1,8 @@
-import { DISPLAY_MESSAGE, DELETE_CHAT } from '../actions/types';
+import {
+  DISPLAY_WELCOME_MESSAGE,
+  DISPLAY_MESSAGE,
+  DELETE_CHAT
+} from '../actions/types';
 
 const initialState = {
   chatArray: []
@@ -6,6 +10,18 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case DISPLAY_WELCOME_MESSAGE:
+      return {
+        ...state,
+        chatArray: [
+          ...state.chatArray,
+          {
+            id: action.payload.id,
+            user: action.payload.user,
+            text: action.payload.text
+          }
+        ]
+      };
     case DISPLAY_MESSAGE:
       return {
         ...state,
