@@ -9,6 +9,7 @@ const t3_chat = require('./t3_chat');
 
 // const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 const userMethods = require('./users');
+const ttt_boardMethods = require('./ticTacToeBoard');
 
 // Connect to database
 connectDB();
@@ -17,7 +18,7 @@ app.get('/', (req, res) => {
   res.json({ msg: 'Backend yall' });
 });
 
-t3_chat(io, uuid, userMethods);
+t3_chat(io, uuid, userMethods, ttt_boardMethods);
 
 // io.on('connect', socket => {
 //   socket.on('join', ({ name, room }, callback) => {

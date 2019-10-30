@@ -4,6 +4,7 @@
 :root {
   --main-text-color: #fff;
   --main-hover-background-color: #979696;
+  --box-hover-background-color: #444343;
   --primary-color: #f4f4f4;
   --secondary-color: #fff;
   /* --secondary-color: #ff00ff; */
@@ -270,13 +271,13 @@ input[type='submit']:hover {
   align-items: center;
 }
 
-.score-box {
+.score-board {
   width: 100%;
   padding: 1rem;
   display: flex;
   justify-content: space-evenly;
 }
-.score-box p {
+.score-board p {
   font-size: 1.4rem;
 }
 
@@ -294,40 +295,78 @@ input[type='submit']:hover {
   text-align: center;
 }
 
-.one {
-  border-right: 0.5rem solid var(--main-hover-background-color);
-  border-bottom: 0.5rem solid var(--main-hover-background-color);
+.box i {
+  color: var(--main-hover-background-color);
 }
 
-.two {
-  border-bottom: 0.5rem solid var(--main-hover-background-color);
-  border-right: 0.5rem solid var(--main-hover-background-color);
+.box:hover {
+  /* temporary */
+  cursor: pointer;
+  background: var(--box-hover-background-color);
+}
+.box-full {
+  text-align: center;
+  padding: 0.5rem !important;
+}
+/* .box-empty {
+  padding: 4rem;
+  text-align: center;
+} */
+
+.box-empty:hover {
+  cursor: pointer;
+  background: var(--box-hover-background-color);
 }
 
-.three {
-  border-bottom: 0.5rem solid var(--main-hover-background-color);
+.box-1 {
+  border-right: 0.3rem solid var(--main-hover-background-color);
+  border-bottom: 0.3rem solid var(--main-hover-background-color);
 }
 
-.four {
-  border-right: 0.5rem solid var(--main-hover-background-color);
-  border-bottom: 0.5rem solid var(--main-hover-background-color);
+.box-2 {
+  border-left: 0.3rem solid var(--main-hover-background-color);
+  border-bottom: 0.3rem solid var(--main-hover-background-color);
+  border-right: 0.3rem solid var(--main-hover-background-color);
 }
 
-.five {
-  border-right: 0.5rem solid var(--main-hover-background-color);
-  border-bottom: 0.5rem solid var(--main-hover-background-color);
+.box-3 {
+  border-left: 0.3rem solid var(--main-hover-background-color);
+  border-bottom: 0.3rem solid var(--main-hover-background-color);
 }
 
-.six {
-  border-bottom: 0.5rem solid var(--main-hover-background-color);
+.box-4 {
+  border-top: 0.3rem solid var(--main-hover-background-color);
+  border-right: 0.3rem solid var(--main-hover-background-color);
+  border-bottom: 0.3rem solid var(--main-hover-background-color);
 }
 
-.seven {
-  border-right: 0.5rem solid var(--main-hover-background-color);
+.box-5 {
+  border-left: 0.3rem solid var(--main-hover-background-color);
+  border-top: 0.3rem solid var(--main-hover-background-color);
+  border-right: 0.3rem solid var(--main-hover-background-color);
+  border-bottom: 0.3rem solid var(--main-hover-background-color);
 }
 
-.eight {
-  border-right: 0.5rem solid var(--main-hover-background-color);
+.box-6 {
+  border-bottom: 0.3rem solid var(--main-hover-background-color);
+  border-left: 0.3rem solid var(--main-hover-background-color);
+  border-top: 0.3rem solid var(--main-hover-background-color);
+}
+
+.box-7 {
+  border-top: 0.3rem solid var(--main-hover-background-color);
+  border-right: 0.3rem solid var(--main-hover-background-color);
+}
+
+.box-8 {
+  border-left: 0.3rem solid var(--main-hover-background-color);
+  border-top: 0.3rem solid var(--main-hover-background-color);
+  border-right: 0.3rem solid var(--main-hover-background-color);
+}
+
+.box-9 {
+  border-left: 0.3rem solid var(--main-hover-background-color);
+  border-top: 0.3rem solid var(--main-hover-background-color);
 }
 
 .chat-box {

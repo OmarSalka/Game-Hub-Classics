@@ -1,13 +1,14 @@
-module.exports = (io, uuid, userMethods) => {
+module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
   // const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
   const { addUser, removeUser, getUser, getUsersInRoom } = userMethods;
+  const { getRoomBoard, createBoard, editBox, deleteBoard } = ttt_boardMethods;
 
   io.on('connect', socket => {
     socket.on('join', ({ name, room }, callback) => {
-      console.log(name, room);
+      // console.log(name, room);
       const { error, user } = addUser({ id: socket.id, name, room });
-      console.log(`error: ${error}`);
+      // console.log(`error: ${error}`);
 
       if (error) return callback(error);
 
@@ -25,6 +26,18 @@ module.exports = (io, uuid, userMethods) => {
         user: 'admin',
         text: `${user.name} just joined`
       });
+
+      // display tic tac toe board
+
+      io.to(user.room).emit('create board', {
+        ttt_board: createBoard(user.room)
+      });
+      io.to(user.room).emit('display board', {
+        ttt_board: getRoomBoard(user.room)
+      });
+      // socket.on('create board', () => {
+      //   createBoard(user.room);
+      // });
 
       io.to(user.room).emit('room data', {
         room: user.room,
@@ -50,6 +63,20 @@ module.exports = (io, uuid, userMethods) => {
       // });
     });
 
+    socket.on('edit ttt_board', ({ id, icon, user, room }, callback) => {
+      const edited = editBox({ id, icon, user, room });
+      if (edited) return callback(edited);
+    });
+
+    socket.on('delete board', ({ room }) => {
+      console.log('deleting board...');
+      deleteBoard(room);
+      io.to(room).emit('display board', {
+        ttt_board: null
+      });
+      // console.log(board);
+    });
+
     // when leaving
     socket.on('disconnect', () => {
       console.log('server socket disconnecting...');
@@ -65,6 +92,10 @@ module.exports = (io, uuid, userMethods) => {
           room: user.room,
           users: getUsersInRoom(user.room)
         });
+        const board = deleteBoard(user.room);
+        if (board) {
+          io.to(user.room).emit('delete board');
+        }
       }
     });
   });

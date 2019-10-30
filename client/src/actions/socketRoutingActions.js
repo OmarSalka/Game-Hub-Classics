@@ -7,8 +7,9 @@ import {
   GET_ROOM_DATA
 } from './types';
 import { errorLogger } from './alertActions';
-// import { display_message } from './chatActions';
+import { create_board, display_board } from './ticTacToeActions';
 import { delete_chat } from './chatActions';
+import { delete_board } from './ticTacToeActions';
 
 import io from 'socket.io-client';
 
@@ -39,13 +40,16 @@ export const join = (joinData, game) => dispatch => {
     });
   });
 
-  socket.once('room data', roomData => {
-    const { room, users } = roomData;
-    dispatch({
-      type: GET_ROOM_DATA,
-      payload: users
-    });
-  });
+  // socket.on('room data', roomData => {
+  //   const { room, users } = roomData;
+  //   dispatch({
+  //     type: GET_ROOM_DATA,
+  //     payload: users
+  //   });
+  // });
+
+  dispatch(create_board(socket));
+  dispatch(display_board(socket));
 
   dispatch({
     type: JOIN,
@@ -82,10 +86,11 @@ export const send_message = textMessage => {
   socket.emit('send message', textMessage);
 };
 
-export const disconnect_socket = socket => dispatch => {
+export const disconnect_socket = (socket, room) => dispatch => {
   socket.disconnect();
   dispatch({
     type: DISCONNECT
   });
   dispatch(delete_chat());
+  dispatch(delete_board(socket, room));
 };

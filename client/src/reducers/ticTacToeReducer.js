@@ -1,15 +1,20 @@
-import { TTTBOX_CLICKED } from '../actions/types';
+import { GET_BOARD, DELETE_BOARD } from '../actions/types';
 
 const initialState = {
-  boxState: 'empty'
+  boxArray: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case TTTBOX_CLICKED:
+    case GET_BOARD:
       return {
         ...state,
-        boxState: 'full'
+        boxArray: action.payload
+      };
+    case DELETE_BOARD:
+      return {
+        ...state,
+        boxArray: null
       };
     default:
       return state;

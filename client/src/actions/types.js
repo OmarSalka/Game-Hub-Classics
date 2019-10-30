@@ -3,6 +3,9 @@ export const T3_JOIN_SUCCESS = 'T3_JOIN_SUCCESS';
 export const DB_JOIN_SUCCESS = 'DB_JOIN_SUCCESS';
 export const GET_ROOM_DATA = 'GET_ROOM_DATA';
 
+export const GET_BOARD = 'GET_BOARD';
+export const DELETE_BOARD = 'DELETE_BOARD';
+
 export const DISCONNECT = 'DISCONNECT';
 
 export const ERROR = 'ERROR';

@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getOnlineUsers } from '../../actions/socketRoutingActions';
 
-const OnlinePlayers = ({ socketRouting: { users, name } }) => {
+const OnlinePlayers = ({ socketRouting: { users, name, oponent } }) => {
   useEffect(() => {
     getOnlineUsers(name);
     // eslint-disable-next-line
-  }, [users]);
+  }, [users, oponent]);
 
   return (
     <div className='live-users'>
