@@ -14,7 +14,18 @@ const addUser = ({ id, name, room }) => {
   if (numberOfUsersInRoom.length === 2)
     return { error: 'Room at full capacity' };
 
-  const user = { id, name, room };
+  // const icon = users.length === 0 ? 'x' : users.length > 0 && users[0].icon === 'x' ? 'o' : users.length > 0 && users[0].icon === 'o' ? 'x' : null;
+
+  let icon;
+  if (users.length === 0) {
+    icon = 'x';
+  } else if (users.length > 0 && users[0].icon === 'x') {
+    icon = 'o';
+  } else if (users.length > 0 && users[0].icon === 'o') {
+    icon = 'x';
+  }
+
+  const user = { id, name, room, icon };
 
   users.push(user);
 

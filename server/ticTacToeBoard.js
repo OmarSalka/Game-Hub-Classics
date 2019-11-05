@@ -18,21 +18,24 @@ const createBoard = room => {
       ]
     };
     board.push(intialBoard);
-    console.log(intialBoard.boxes);
     return intialBoard.boxes;
   }
 };
 
 const getRoomBoard = room => {
   const roomBoard = board.find(roomBoard => roomBoard.room === room);
+
   return roomBoard.boxes;
 };
 
 const editBox = ({ id, icon, user, room }) => {
   const roomBoard = board.find(roomBoard => roomBoard.room === room);
-  const already_ticked = roomBoard.boxes.find(box => box.id === id);
-  if (!already_ticked.icon) board[id] = { id, icon, user };
-  return board.find(roomBoard => roomBoard.room === room);
+  const boxClicked = roomBoard.boxes.find(box => box.id === id).icon;
+  if (!boxClicked) {
+    board.find(roomBoard => roomBoard.room === room).boxes[id - 1].icon = icon;
+    board.find(roomBoard => roomBoard.room === room).boxes[id - 1].user = user;
+  }
+  return board.find(roomBoard => roomBoard.room === room).boxes;
 };
 
 const deleteBoard = room => {

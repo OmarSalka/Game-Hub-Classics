@@ -12,6 +12,7 @@ const initialState = {
   is_Authenticated: false,
   name: null,
   room: null,
+  icon: null,
   socket: null,
   users: [],
   oponent: null
@@ -52,7 +53,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         users: action.payload.users,
-        oponent: action.payload.oponent
+        oponent: action.payload.oponent,
+        icon: action.payload.icon
       };
 
     default:

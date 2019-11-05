@@ -4,13 +4,16 @@ import {
   DB_JOIN_SUCCESS,
   DISCONNECT,
   DISPLAY_WELCOME_MESSAGE,
-  GET_ROOM_DATA
+  GET_ROOM_DATA,
+  GET_INITIAL_BOARD,
+  CHANGE_ICON
 } from './types';
 import { errorLogger } from './alertActions';
 // import { create_board, display_board } from './ticTacToeActions';
 import { delete_chat } from './chatActions';
 import {
-  make_move_ttt
+  make_move_ttt,
+  display_board_ttt
   //  delete_board
 } from './ticTacToeActions';
 
@@ -59,6 +62,8 @@ export const join = (joinData, game) => dispatch => {
   });
 
   dispatch(getOnlineUsers(name));
+  // dispatch(display_board_ttt(socket));
+  dispatch(emptyTicTacToeBoard(socket));
 };
 
 // get online users
@@ -66,11 +71,24 @@ export const getOnlineUsers = name => dispatch => {
   socket.on('room data', roomData => {
     const { room, users } = roomData;
     const existingOponent = users.find(user => user.name !== name);
+    const icon = users.find(user => user.name === name).icon;
     let oponent;
     if (existingOponent) oponent = existingOponent.name;
     dispatch({
       type: GET_ROOM_DATA,
-      payload: { users, oponent }
+      payload: { users, oponent, icon }
+    });
+  });
+};
+
+// empty tic tac toe board
+export const emptyTicTacToeBoard = socket => dispatch => {
+  console.log('initial board displayed');
+  socket.once('empty board', ticTacToe_board => {
+    console.log(ticTacToe_board);
+    dispatch({
+      type: GET_INITIAL_BOARD,
+      payload: ticTacToe_board.ticTacToe_board
     });
   });
 };

@@ -1,25 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  display_board_ttt,
-  make_move_ttt
-  // delete_board
-} from '../../../actions/ticTacToeActions';
+import { make_move_ttt } from '../../../actions/ticTacToeActions';
 
-import Box from './Box';
+// import Box from './Box';
 
 const TicTacToeBoard = ({
-  socketRouting: { socket, room, name, icon }, // create icon variable in socket router reducer and actions
-  ticTacToe: { boxArray },
-  display_board_ttt,
+  socketRouting: { socket, room, name, icon },
+  ticTacToe: { box1, box2, box3, box4, box5, box6, box7, box8, box9 },
   make_move_ttt
 }) => {
-  useEffect(() => {
-    display_board_ttt(socket, room);
-
-    // eslint-disable-next-line
-  }, [socket, boxArray]);
-
   const box_1_clicked = () => {
     make_move_ttt(socket, { id: 1, user: name, icon, room });
   };
@@ -51,31 +40,67 @@ const TicTacToeBoard = ({
   return (
     <div className='tic-tac-toe-board'>
       <div className='box box-1' onClick={box_1_clicked}>
-        1
+        {box1.icon === 'x' ? (
+          <i className='fas fa-times fa-3x'></i>
+        ) : (
+          box1.icon === 'o' && <i className='far fa-circle fa-3x'></i>
+        )}
       </div>
       <div className='box box-2' onClick={box_2_clicked}>
-        2
+        {box2.icon === 'x' ? (
+          <i className='fas fa-times fa-3x'></i>
+        ) : (
+          box2.icon === 'o' && <i className='far fa-circle fa-3x'></i>
+        )}
       </div>
       <div className='box box-3' onClick={box_3_clicked}>
-        3
+        {box3.icon === 'x' ? (
+          <i className='fas fa-times fa-3x'></i>
+        ) : (
+          box3.icon === 'o' && <i className='far fa-circle fa-3x'></i>
+        )}
       </div>
       <div className='box box-4' onClick={box_4_clicked}>
-        4
+        {box4.icon === 'x' ? (
+          <i className='fas fa-times fa-3x'></i>
+        ) : (
+          box4.icon === 'o' && <i className='far fa-circle fa-3x'></i>
+        )}
       </div>
       <div className='box box-5' onClick={box_5_clicked}>
-        5
+        {box5.icon === 'x' ? (
+          <i className='fas fa-times fa-3x'></i>
+        ) : (
+          box5.icon === 'o' && <i className='far fa-circle fa-3x'></i>
+        )}
       </div>
       <div className='box box-6' onClick={box_6_clicked}>
-        6
+        {box6.icon === 'x' ? (
+          <i className='fas fa-times fa-3x'></i>
+        ) : (
+          box6.icon === 'o' && <i className='far fa-circle fa-3x'></i>
+        )}
       </div>
       <div className='box box-7' onClick={box_7_clicked}>
-        7
+        {box7.icon === 'x' ? (
+          <i className='fas fa-times fa-3x'></i>
+        ) : (
+          box7.icon === 'o' && <i className='far fa-circle fa-3x'></i>
+        )}
       </div>
       <div className='box box-8' onClick={box_8_clicked}>
-        8
+        {box8.icon === 'x' ? (
+          <i className='fas fa-times fa-3x'></i>
+        ) : (
+          box8.icon === 'o' && <i className='far fa-circle fa-3x'></i>
+        )}
       </div>
       <div className='box box-9' onClick={box_9_clicked}>
-        9
+        {box9.icon === 'x' ? (
+          <i className='fas fa-times fa-3x'></i>
+        ) : (
+          box9.icon === 'o' && <i className='far fa-circle fa-3x'></i>
+        )}
       </div>
     </div>
   );
@@ -86,5 +111,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { display_board_ttt, make_move_ttt }
+  { make_move_ttt }
 )(TicTacToeBoard);

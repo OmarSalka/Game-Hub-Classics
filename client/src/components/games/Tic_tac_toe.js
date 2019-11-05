@@ -21,7 +21,7 @@ const Tic_tac_toe = ({
 }) => {
   useEffect(() => {
     display_message(socket);
-    display_board_ttt(socket);
+    // display_board_ttt(socket);
 
     return () => {
       disconnect_socket(socket);

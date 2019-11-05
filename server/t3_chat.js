@@ -27,17 +27,24 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
         text: `${user.name} just joined`
       });
 
-      // display tic tac toe board
+      // ===========================================================================================
 
-      io.to(user.room).emit('create board', {
-        ttt_board: createBoard(user.room)
-      });
-      io.to(user.room).emit('display board', {
-        ttt_board: getRoomBoard(user.room)
+      // create tic tac toe board data
+      createBoard(user.room);
+      // io.to(user.room).emit('create board', {
+      //   ttt_board: createBoard(user.room)
+      // });
+
+      // ===========================================================================================
+
+      io.in(user.room).emit('empty board', {
+        ticTacToe_board: getRoomBoard(user.room)
       });
       // socket.on('create board', () => {
       //   createBoard(user.room);
       // });
+
+      // ===========================================================================================
 
       io.to(user.room).emit('room data', {
         room: user.room,
@@ -63,28 +70,34 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
       // });
     });
 
+    // ===========================================================================================
+
     socket.on('make move', data => {
       const users = getUsersInRoom(data.room);
-      if (users.length > 2) {
+      if (users.length === 2) {
         const updatedBoard = editBox(data);
-        io.to(user.room).emit('display board', {
-          updatedBoard
+        // io.to(user.room).emit('display board', {
+        //   updatedBoard
+        // });
+        io.to(data.room).emit('display board', {
+          ticTacToe_board: updatedBoard
         });
       }
     });
 
-    socket.on('edit ttt_board', ({ id, icon, user, room }, callback) => {
-      const edited = editBox({ id, icon, user, room });
-      if (edited) return callback(edited);
-    });
+    // ===========================================================================================
+
+    // socket.on('edit ttt_board', ({ id, icon, user, room }, callback) => {
+    //   const edited = editBox({ id, icon, user, room });
+    //   if (edited) return callback(edited);
+    // });
 
     socket.on('delete board', ({ room }) => {
       console.log('deleting board...');
       deleteBoard(room);
-      io.to(room).emit('display board', {
+      io.in(room).emit('display board', {
         ttt_board: null
       });
-      // console.log(board);
     });
 
     // when leaving
