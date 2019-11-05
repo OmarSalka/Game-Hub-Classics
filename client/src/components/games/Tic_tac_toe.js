@@ -7,18 +7,21 @@ import TicTacToeBoard from './tic_tac_toe/TicTacToeBoard';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { display_message, send_message } from '../../actions/chatActions';
-import { delete_board, display_board } from '../../actions/ticTacToeActions';
+import {
+  delete_board,
+  display_board_ttt
+} from '../../actions/ticTacToeActions';
 import { disconnect_socket } from '../../actions/socketRoutingActions';
 
 const Tic_tac_toe = ({
   socketRouting: { oponent, name, room, socket, is_Authenticated, tic_tac_toe },
   display_message,
   disconnect_socket,
-  display_board
+  display_board_ttt
 }) => {
   useEffect(() => {
     display_message(socket);
-    display_board(socket);
+    display_board_ttt(socket);
 
     return () => {
       disconnect_socket(socket);
@@ -62,5 +65,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { display_message, send_message, disconnect_socket, display_board }
+  { display_message, send_message, disconnect_socket, display_board_ttt }
 )(Tic_tac_toe);

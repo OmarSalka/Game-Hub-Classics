@@ -63,6 +63,16 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
       // });
     });
 
+    socket.on('make move', data => {
+      const users = getUsersInRoom(data.room);
+      if (users.length > 2) {
+        const updatedBoard = editBox(data);
+        io.to(user.room).emit('display board', {
+          updatedBoard
+        });
+      }
+    });
+
     socket.on('edit ttt_board', ({ id, icon, user, room }, callback) => {
       const edited = editBox({ id, icon, user, room });
       if (edited) return callback(edited);

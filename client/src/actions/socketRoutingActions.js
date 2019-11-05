@@ -7,9 +7,12 @@ import {
   GET_ROOM_DATA
 } from './types';
 import { errorLogger } from './alertActions';
-import { create_board, display_board } from './ticTacToeActions';
+// import { create_board, display_board } from './ticTacToeActions';
 import { delete_chat } from './chatActions';
-import { delete_board } from './ticTacToeActions';
+import {
+  make_move_ttt
+  //  delete_board
+} from './ticTacToeActions';
 
 import io from 'socket.io-client';
 
@@ -20,6 +23,7 @@ export const join = (joinData, game) => dispatch => {
   socket = io(ENDPOINT);
   const { name, room } = joinData;
 
+  // join
   socket.emit('join', { name, room }, error => {
     if (error) {
       dispatch(errorLogger({ type: 'danger', msg: error }));
@@ -32,6 +36,7 @@ export const join = (joinData, game) => dispatch => {
     }
   });
 
+  // send welcome message
   socket.once('message', message => {
     const { id, user, text } = message;
     dispatch({
@@ -48,9 +53,6 @@ export const join = (joinData, game) => dispatch => {
   //   });
   // });
 
-  dispatch(create_board(socket));
-  dispatch(display_board(socket));
-
   dispatch({
     type: JOIN,
     payload: { name, room, socket }
@@ -59,6 +61,7 @@ export const join = (joinData, game) => dispatch => {
   dispatch(getOnlineUsers(name));
 };
 
+// get online users
 export const getOnlineUsers = name => dispatch => {
   socket.on('room data', roomData => {
     const { room, users } = roomData;
@@ -72,6 +75,7 @@ export const getOnlineUsers = name => dispatch => {
   });
 };
 
+// display message
 export const display_message = () => dispatch => {
   socket.on('message', message => {
     const { id, user, text } = message;
@@ -82,15 +86,21 @@ export const display_message = () => dispatch => {
   });
 };
 
+// send message
 export const send_message = textMessage => {
   socket.emit('send message', textMessage);
 };
 
+// make move
+// export const make_move = data => dispatch => {
+//   dispatch(make_move_ttt(socket, data));
+// };
+
+// disconnect
 export const disconnect_socket = (socket, room) => dispatch => {
   socket.disconnect();
   dispatch({
     type: DISCONNECT
   });
   dispatch(delete_chat());
-  dispatch(delete_board(socket, room));
 };
