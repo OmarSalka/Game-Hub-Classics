@@ -15,6 +15,7 @@ import { disconnect_socket } from '../../actions/socketRoutingActions';
 
 const Tic_tac_toe = ({
   socketRouting: { oponent, name, room, socket, is_Authenticated, tic_tac_toe },
+  ticTacToe: { nextPlayer, firstMove },
   display_message,
   disconnect_socket,
   display_board_ttt
@@ -29,6 +30,8 @@ const Tic_tac_toe = ({
     };
     // eslint-disable-next-line
   }, [socket]);
+
+  console.log(nextPlayer, name);
 
   return (
     <div id='tic-tac-toe'>
@@ -47,6 +50,15 @@ const Tic_tac_toe = ({
           <div className='game-box'>
             <ScoreBoard />
             <TicTacToeBoard />
+            {nextPlayer && nextPlayer === name ? (
+              <p>It's your turn!</p>
+            ) : nextPlayer && nextPlayer !== name ? (
+              <p>It's {nextPlayer}'s turn!</p>
+            ) : firstMove ? (
+              <p>Your move {name}</p>
+            ) : (
+              <p>Waiting for your oponent...</p>
+            )}
           </div>
           <div className='chat-box'>
             <OnlinePlayers />
@@ -60,7 +72,8 @@ const Tic_tac_toe = ({
 };
 
 const mapStateToProps = state => ({
-  socketRouting: state.socketRouting
+  socketRouting: state.socketRouting,
+  ticTacToe: state.ticTacToe
 });
 
 export default connect(

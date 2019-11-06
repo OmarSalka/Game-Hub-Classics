@@ -1,4 +1,13 @@
-import { GET_INITIAL_BOARD, GET_BOARD, DELETE_BOARD } from '../actions/types';
+import {
+  GET_INITIAL_BOARD,
+  GET_BOARD,
+  DELETE_BOARD,
+  GOES_FIRST,
+  MADE_FIRST_MOVE,
+  ALLOW_TO_PLAY,
+  DISALLOW_TO_PLAY,
+  ASSIGN_NEXT_TURN
+} from '../actions/types';
 
 const initialState = {
   ttt_BoardData: null,
@@ -10,7 +19,10 @@ const initialState = {
   box6: { id: 6, icon: null, user: null },
   box7: { id: 7, icon: null, user: null },
   box8: { id: 8, icon: null, user: null },
-  box9: { id: 9, icon: null, user: null }
+  box9: { id: 9, icon: null, user: null },
+  firstMove: false,
+  allowed: false,
+  nextPlayer: null
 };
 
 export default (state = initialState, action) => {
@@ -30,6 +42,31 @@ export default (state = initialState, action) => {
         box8: action.payload[7],
         box9: action.payload[8]
       };
+    case GOES_FIRST:
+      return {
+        ...state,
+        firstMove: true
+      };
+    case MADE_FIRST_MOVE:
+      return {
+        ...state,
+        firstMove: false
+      };
+    case ALLOW_TO_PLAY:
+      return {
+        ...state,
+        allowed: true
+      };
+    case DISALLOW_TO_PLAY:
+      return {
+        ...state,
+        allowed: false
+      };
+    case ASSIGN_NEXT_TURN:
+      return {
+        ...state,
+        nextPlayer: action.payload
+      };
     case DELETE_BOARD:
       return {
         ...state,
@@ -42,7 +79,8 @@ export default (state = initialState, action) => {
         box6: { id: 6, icon: null, user: null },
         box7: { id: 7, icon: null, user: null },
         box8: { id: 8, icon: null, user: null },
-        box9: { id: 9, icon: null, user: null }
+        box9: { id: 9, icon: null, user: null },
+        allowed: false
       };
     default:
       return state;

@@ -3,6 +3,7 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
 
   const { addUser, removeUser, getUser, getUsersInRoom } = userMethods;
   const { getRoomBoard, createBoard, editBox, deleteBoard } = ttt_boardMethods;
+  let allowedPlayer;
 
   io.on('connect', socket => {
     socket.on('join', ({ name, room }, callback) => {
@@ -57,7 +58,7 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
     // when sending text
     socket.on('send message', msg => {
       const user = getUser(socket.id);
-      console.log('send message:', user);
+      // console.log('send message:', user);
 
       io.to(user.room).emit('message', {
         id: uuid.v4(),
@@ -71,17 +72,26 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
     });
 
     // ===========================================================================================
+    // let allowedPlayer;
+    socket.on('make move', ({ firstMove, data, oponent }) => {
+      console.log({ firstMove });
+      console.log({ data });
+      console.log({ oponent });
+      console.log({ allowedPlayer });
 
-    socket.on('make move', data => {
-      const users = getUsersInRoom(data.room);
-      if (users.length === 2) {
-        const updatedBoard = editBox(data);
-        // io.to(user.room).emit('display board', {
-        //   updatedBoard
-        // });
-        io.to(data.room).emit('display board', {
-          ticTacToe_board: updatedBoard
-        });
+      if (firstMove || data.user === allowedPlayer) {
+        const users = getUsersInRoom(data.room);
+        if (users.length === 2) {
+          const updatedBoard = editBox(data);
+          // io.to(user.room).emit('display board', {
+          //   updatedBoard
+          // });
+          io.to(data.room).emit('display board', {
+            ticTacToe_board: updatedBoard,
+            nextPlayer: oponent
+          });
+        }
+        allowedPlayer = oponent;
       }
     });
 
@@ -95,8 +105,9 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
     socket.on('delete board', ({ room }) => {
       console.log('deleting board...');
       deleteBoard(room);
-      io.in(room).emit('display board', {
-        ttt_board: null
+      io.to(room).emit('display board', {
+        ticTacToe_board: updatedBoard,
+        nextPlayer: null
       });
     });
 
