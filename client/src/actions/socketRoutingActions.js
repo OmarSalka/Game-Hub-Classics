@@ -6,6 +6,7 @@ import {
   DISPLAY_WELCOME_MESSAGE,
   GET_ROOM_DATA,
   GET_INITIAL_BOARD,
+  GET_BOARD,
   CHANGE_ICON
 } from './types';
 import { errorLogger } from './alertActions';
@@ -62,8 +63,7 @@ export const join = (joinData, game) => dispatch => {
   });
 
   dispatch(getOnlineUsers(name));
-  // dispatch(display_board_ttt(socket));
-  dispatch(emptyTicTacToeBoard(socket));
+  // dispatch(emptyTicTacToeBoard(socket));
 };
 
 // get online users
@@ -82,16 +82,16 @@ export const getOnlineUsers = name => dispatch => {
 };
 
 // empty tic tac toe board
-export const emptyTicTacToeBoard = socket => dispatch => {
-  console.log('initial board displayed');
-  socket.once('empty board', ticTacToe_board => {
-    console.log(ticTacToe_board);
-    dispatch({
-      type: GET_INITIAL_BOARD,
-      payload: ticTacToe_board.ticTacToe_board
-    });
-  });
-};
+// export const emptyTicTacToeBoard = socket => dispatch => {
+//   console.log('initial board displayed');
+//   socket.once('empty board', ({ ticTacToe_board }) => {
+//     console.log(ticTacToe_board);
+//     dispatch({
+//       type: GET_INITIAL_BOARD,
+//       payload: ticTacToe_board
+//     });
+//   });
+// };
 
 // display message
 export const display_message = () => dispatch => {

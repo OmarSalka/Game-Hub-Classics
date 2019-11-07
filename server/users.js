@@ -9,7 +9,7 @@ const addUser = ({ id, name, room }) => {
   );
   const numberOfUsersInRoom = users.filter(user => user.room === room);
 
-  if (!name || !room) return { error: 'Both UserName and Room are required' };
+  if (!name || !room) return { error: 'Both Username and Room are required' };
   if (existingUser) return { error: 'Username taken' };
   if (numberOfUsersInRoom.length === 2)
     return { error: 'Room at full capacity' };

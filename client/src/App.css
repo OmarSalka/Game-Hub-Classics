@@ -282,45 +282,185 @@ input[type='submit']:hover {
   font-size: 1.4rem;
 }
 
+.live-updates p {
+  font-size: 1.2rem;
+  color: grey;
+  font-weight: bold;
+}
+
 .tic-tac-toe-board {
-  /* width: 100%; */
-  /* max-height: 50vh; */
   max-width: 600px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0rem;
-  margin: 4rem;
+  margin: 3rem;
 }
 
 .box {
   /* padding: 4rem; */
-  height: 6rem;
-  width: 6rem;
+  height: 6.6rem;
+  width: 6.6rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
 }
 
 .box i {
   color: var(--main-hover-background-color);
 }
 
-.box:hover {
-  /* temporary */
-  cursor: pointer;
-  background: var(--box-hover-background-color);
+.you-win {
+  background: gold !important;
 }
-.box-full {
-  text-align: center;
-  padding: 0.5rem !important;
+.you-win {
+  -webkit-animation: win_color_change 2s infinite alternate;
+  -moz-animation: win_color_change 2s infinite alternate;
+  -ms-animation: win_color_change 2s infinite alternate;
+  -o-animation: win_color_change 2s infinite alternate;
+  animation: win_color_change 2s infinite alternate;
 }
-/* .box-empty {
-  padding: 4rem;
-  text-align: center;
-} */
 
-.box-empty:hover {
+@-webkit-keyframes win_color_change {
+  0% {
+    background: transparent;
+    background-color: #03b403;
+  }
+  /* 50% { */
+  /* background-color: #006200; */
+  /* } */
+  100% {
+    background: transparent;
+    /* background-color: #00cc00; */
+  }
+}
+@-moz-keyframes win_color_change {
+  0% {
+    background: transparent;
+    background-color: #03b403;
+  }
+  /* 50% { */
+  /* background-color: #006200; */
+  /* } */
+  100% {
+    background: transparent;
+    /* background-color: #00cc00; */
+  }
+}
+@-ms-keyframes win_color_change {
+  0% {
+    background: transparent;
+    background-color: #03b403;
+  }
+  /* 50% { */
+  /* background-color: #006200; */
+  /* } */
+  100% {
+    background: transparent;
+    /* background-color: #00cc00; */
+  }
+}
+@-o-keyframes win_color_change {
+  0% {
+    background: transparent;
+    background-color: #03b403;
+  }
+  /* 50% { */
+  /* background-color: #006200; */
+  /* } */
+  100% {
+    background: transparent;
+    /* background-color: #00cc00; */
+  }
+}
+@keyframes win_color_change {
+  0% {
+    background: transparent;
+    background-color: #03b403;
+  }
+  /* 50% { */
+  /* background-color: #006200; */
+  /* } */
+  100% {
+    background: transparent;
+    /* background-color: #00cc00; */
+  }
+}
+
+/* lose */
+.you-lose {
+  background: red !important;
+}
+.you-lose {
+  -webkit-animation: lose_color_change 2s infinite alternate;
+  -moz-animation: lose_color_change 2s infinite alternate;
+  -ms-animation: lose_color_change 2s infinite alternate;
+  -o-animation: lose_color_change 2s infinite alternate;
+  animation: lose_color_change 2s infinite alternate;
+}
+
+@-webkit-keyframes lose_color_change {
+  0% {
+    background-color: darkred;
+    /* background-color: darkred; */
+  }
+  /* 50% { */
+  /* } */
+  100% {
+    /* background-color: orangered; */
+    background: transparent;
+  }
+}
+@-moz-keyframes lose_color_change {
+  0% {
+    background-color: darkred;
+    /* background-color: darkred; */
+  }
+  /* 50% { */
+  /* } */
+  100% {
+    /* background-color: orangered; */
+    background: transparent;
+  }
+}
+@-ms-keyframes lose_color_change {
+  0% {
+    background-color: darkred;
+    /* background-color: darkred; */
+  }
+  /* 50% { */
+  /* } */
+  100% {
+    /* background-color: orangered; */
+    background: transparent;
+  }
+}
+@-o-keyframes lose_color_change {
+  0% {
+    background-color: darkred;
+    /* background-color: darkred; */
+  }
+  /* 50% { */
+  /* } */
+  100% {
+    /* background-color: orangered; */
+    background: transparent;
+  }
+}
+@keyframes lose_color_change {
+  0% {
+    background-color: darkred;
+    /* background-color: darkred; */
+  }
+  /* 50% { */
+  /* } */
+  100% {
+    /* background-color: orangered; */
+    background: transparent;
+  }
+}
+
+.box:hover {
   cursor: pointer;
   background: var(--box-hover-background-color);
 }

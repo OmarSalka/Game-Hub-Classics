@@ -6,11 +6,23 @@ import {
   MADE_FIRST_MOVE,
   ALLOW_TO_PLAY,
   DISALLOW_TO_PLAY,
-  ASSIGN_NEXT_TURN
+  ASSIGN_NEXT_TURN,
+  PLAYER_WON,
+  OPONENT_WON
 } from '../actions/types';
 
 const initialState = {
-  ttt_BoardData: null,
+  ttt_BoardData: [
+    { id: 1, icon: null, user: null },
+    { id: 2, icon: null, user: null },
+    { id: 3, icon: null, user: null },
+    { id: 4, icon: null, user: null },
+    { id: 5, icon: null, user: null },
+    { id: 6, icon: null, user: null },
+    { id: 7, icon: null, user: null },
+    { id: 8, icon: null, user: null },
+    { id: 9, icon: null, user: null }
+  ],
   box1: { id: 1, icon: null, user: null },
   box2: { id: 2, icon: null, user: null },
   box3: { id: 3, icon: null, user: null },
@@ -22,7 +34,14 @@ const initialState = {
   box9: { id: 9, icon: null, user: null },
   firstMove: false,
   allowed: false,
-  nextPlayer: null
+  nextPlayer: null,
+  playerScore: 0,
+  oponentScore: 0,
+  winPiece1: null,
+  winPiece2: null,
+  winPiece3: null,
+  won: null,
+  lost: null
 };
 
 export default (state = initialState, action) => {
@@ -66,6 +85,26 @@ export default (state = initialState, action) => {
       return {
         ...state,
         nextPlayer: action.payload
+      };
+    case PLAYER_WON:
+      return {
+        ...state,
+        playerScore: state.playerScore + 1,
+        winPiece1: action.payload.winningPiece1,
+        winPiece2: action.payload.winningPiece2,
+        winPiece3: action.payload.winningPiece3,
+        won: true,
+        lost: false
+      };
+    case OPONENT_WON:
+      return {
+        ...state,
+        oponentScore: state.oponentScore + 1,
+        winPiece1: action.payload.winningPiece1,
+        winPiece2: action.payload.winningPiece2,
+        winPiece3: action.payload.winningPiece3,
+        won: false,
+        lost: true
       };
     case DELETE_BOARD:
       return {

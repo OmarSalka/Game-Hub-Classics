@@ -14,8 +14,16 @@ import {
 import { disconnect_socket } from '../../actions/socketRoutingActions';
 
 const Tic_tac_toe = ({
-  socketRouting: { oponent, name, room, socket, is_Authenticated, tic_tac_toe },
-  ticTacToe: { nextPlayer, firstMove },
+  socketRouting: {
+    oponent,
+    name,
+    room,
+    users,
+    socket,
+    is_Authenticated,
+    tic_tac_toe
+  },
+  ticTacToe: { nextPlayer, firstMove, won, lost },
   display_message,
   disconnect_socket,
   display_board_ttt
@@ -30,8 +38,6 @@ const Tic_tac_toe = ({
     };
     // eslint-disable-next-line
   }, [socket]);
-
-  console.log(nextPlayer, name);
 
   return (
     <div id='tic-tac-toe'>
@@ -49,16 +55,25 @@ const Tic_tac_toe = ({
         <div className='game-chat-layout'>
           <div className='game-box'>
             <ScoreBoard />
+            <div className='live-updates'>
+              {won ? (
+                <p>You win!!</p>
+              ) : lost ? (
+                <p>You lose</p>
+              ) : nextPlayer && nextPlayer === name ? (
+                <p>It's your turn!</p>
+              ) : nextPlayer && nextPlayer !== name ? (
+                <p>It's {nextPlayer}'s turn!</p>
+              ) : firstMove && users.length === 2 ? (
+                <p>Your move, {name}!</p>
+              ) : users.length === 2 ? (
+                <p>Your oponent goes first</p>
+              ) : (
+                <p>Waiting for your oponent to join...</p>
+              )}
+            </div>
+
             <TicTacToeBoard />
-            {nextPlayer && nextPlayer === name ? (
-              <p>It's your turn!</p>
-            ) : nextPlayer && nextPlayer !== name ? (
-              <p>It's {nextPlayer}'s turn!</p>
-            ) : firstMove ? (
-              <p>Your move {name}</p>
-            ) : (
-              <p>Waiting for your oponent...</p>
-            )}
           </div>
           <div className='chat-box'>
             <OnlinePlayers />

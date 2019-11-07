@@ -74,11 +74,6 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
     // ===========================================================================================
     // let allowedPlayer;
     socket.on('make move', ({ firstMove, data, oponent }) => {
-      console.log({ firstMove });
-      console.log({ data });
-      console.log({ oponent });
-      console.log({ allowedPlayer });
-
       if (firstMove || data.user === allowedPlayer) {
         const users = getUsersInRoom(data.room);
         if (users.length === 2) {

@@ -5,14 +5,16 @@ import {
   allowToMakeMove,
   disallowToMakeMove,
   goesFirst,
-  display_board_ttt
+  display_board_ttt,
+  checkForWinner
 } from '../../../actions/ticTacToeActions';
 
 // import Box from './Box';
 
 const TicTacToeBoard = ({
-  socketRouting: { ttt_BoardData, socket, room, name, icon, users, oponent },
+  socketRouting: { socket, room, name, icon, users, oponent },
   ticTacToe: {
+    ttt_BoardData,
     box1,
     box2,
     box3,
@@ -24,16 +26,23 @@ const TicTacToeBoard = ({
     box9,
     firstMove,
     allowed,
-    nextPlayer
+    nextPlayer,
+    winPiece1,
+    winPiece2,
+    winPiece3,
+    won,
+    lost
   },
   make_move_ttt,
   allowToMakeMove,
   disallowToMakeMove,
   goesFirst,
+  checkForWinner,
   display_board_ttt
 }) => {
   useEffect(() => {
-    display_board_ttt(socket);
+    display_board_ttt(socket, name);
+    checkForWinner(ttt_BoardData, name);
   }, [ttt_BoardData]);
 
   useEffect(() => {
@@ -47,7 +56,6 @@ const TicTacToeBoard = ({
   }, [, /*firstMove*/ users]);
 
   const box_1_clicked = () => {
-    console.log(`${name}: clicked`);
     make_move_ttt(
       socket,
       { id: 1, user: name, icon, room },
@@ -123,163 +131,217 @@ const TicTacToeBoard = ({
   return (
     <div className='tic-tac-toe-board'>
       <div
-        className='box box-1'
+        className={`box box-1 ${
+          (winPiece1 === 1 || winPiece2 === 1 || winPiece3 === 1) && won
+            ? 'you-win'
+            : (winPiece1 === 1 || winPiece2 === 1 || winPiece3 === 1) && lost
+            ? 'you-lose'
+            : null
+        }`}
         onClick={users.length === 2 && allowed ? box_1_clicked : null}
       >
         {box1.icon === 'x' ? (
           <i
             className='fas fa-times fa-3x'
-            style={{ color: box1.user === name && 'red' }}
+            style={{ color: box1.user === name && 'gold' }}
           ></i>
         ) : (
           box1.icon === 'o' && (
             <i
               className='far fa-circle fa-3x'
-              style={{ color: box1.user === name && 'red' }}
+              style={{ color: box1.user === name && 'gold' }}
             ></i>
           )
         )}
       </div>
       <div
-        className='box box-2'
+        className={`box box-2 ${
+          (winPiece1 === 2 || winPiece2 === 2 || winPiece3 === 2) && won
+            ? 'you-win'
+            : (winPiece1 === 2 || winPiece2 === 2 || winPiece3 === 2) && lost
+            ? 'you-lose'
+            : null
+        }`}
         onClick={users.length === 2 && allowed ? box_2_clicked : null}
       >
         {box2.icon === 'x' ? (
           <i
             className='fas fa-times fa-3x'
-            style={{ color: box2.user === name && 'red' }}
+            style={{ color: box2.user === name && 'gold' }}
           ></i>
         ) : (
           box2.icon === 'o' && (
             <i
               className='far fa-circle fa-3x'
-              style={{ color: box2.user === name && 'red' }}
+              style={{ color: box2.user === name && 'gold' }}
             ></i>
           )
         )}
       </div>
       <div
-        className='box box-3'
+        className={`box box-3 ${
+          (winPiece1 === 3 || winPiece2 === 3 || winPiece3 === 3) && won
+            ? 'you-win'
+            : (winPiece1 === 3 || winPiece2 === 3 || winPiece3 === 3) && lost
+            ? 'you-lose'
+            : null
+        }`}
         onClick={users.length === 2 && allowed ? box_3_clicked : null}
       >
         {box3.icon === 'x' ? (
           <i
             className='fas fa-times fa-3x'
-            style={{ color: box3.user === name && 'red' }}
+            style={{ color: box3.user === name && 'gold' }}
           ></i>
         ) : (
           box3.icon === 'o' && (
             <i
               className='far fa-circle fa-3x'
-              style={{ color: box3.user === name && 'red' }}
+              style={{ color: box3.user === name && 'gold' }}
             ></i>
           )
         )}
       </div>
       <div
-        className='box box-4'
+        className={`box box-4 ${
+          (winPiece1 === 4 || winPiece2 === 4 || winPiece3 === 4) && won
+            ? 'you-win'
+            : (winPiece1 === 4 || winPiece2 === 4 || winPiece3 === 4) && lost
+            ? 'you-lose'
+            : null
+        }`}
         onClick={users.length === 2 && allowed ? box_4_clicked : null}
       >
         {box4.icon === 'x' ? (
           <i
             className='fas fa-times fa-3x'
-            style={{ color: box4.user === name && 'red' }}
+            style={{ color: box4.user === name && 'gold' }}
           ></i>
         ) : (
           box4.icon === 'o' && (
             <i
               className='far fa-circle fa-3x'
-              style={{ color: box4.user === name && 'red' }}
+              style={{ color: box4.user === name && 'gold' }}
             ></i>
           )
         )}
       </div>
       <div
-        className='box box-5'
+        className={`box box-5 ${
+          (winPiece1 === 5 || winPiece2 === 5 || winPiece3 === 5) && won
+            ? 'you-win'
+            : (winPiece1 === 5 || winPiece2 === 5 || winPiece3 === 5) && lost
+            ? 'you-lose'
+            : null
+        }`}
         onClick={users.length === 2 && allowed ? box_5_clicked : null}
       >
         {box5.icon === 'x' ? (
           <i
             className='fas fa-times fa-3x'
-            style={{ color: box5.user === name && 'red' }}
+            style={{ color: box5.user === name && 'gold' }}
           ></i>
         ) : (
           box5.icon === 'o' && (
             <i
               className='far fa-circle fa-3x'
-              style={{ color: box5.user === name && 'red' }}
+              style={{ color: box5.user === name && 'gold' }}
             ></i>
           )
         )}
       </div>
       <div
-        className='box box-6'
+        className={`box box-6 ${
+          (winPiece1 === 6 || winPiece2 === 6 || winPiece3 === 6) && won
+            ? 'you-win'
+            : (winPiece1 === 6 || winPiece2 === 6 || winPiece3 === 6) && lost
+            ? 'you-lose'
+            : null
+        }`}
         onClick={users.length === 2 && allowed ? box_6_clicked : null}
       >
         {box6.icon === 'x' ? (
           <i
             className='fas fa-times fa-3x'
-            style={{ color: box6.user === name && 'red' }}
+            style={{ color: box6.user === name && 'gold' }}
           ></i>
         ) : (
           box6.icon === 'o' && (
             <i
               className='far fa-circle fa-3x'
-              style={{ color: box6.user === name && 'red' }}
+              style={{ color: box6.user === name && 'gold' }}
             ></i>
           )
         )}
       </div>
       <div
-        className='box box-7'
+        className={`box box-7 ${
+          (winPiece1 === 7 || winPiece2 === 7 || winPiece3 === 7) && won
+            ? 'you-win'
+            : (winPiece1 === 7 || winPiece2 === 7 || winPiece3 === 7) && lost
+            ? 'you-lose'
+            : null
+        }`}
         onClick={users.length === 2 && allowed ? box_7_clicked : null}
       >
         {box7.icon === 'x' ? (
           <i
             className='fas fa-times fa-3x'
-            style={{ color: box7.user === name && 'red' }}
+            style={{ color: box7.user === name && 'gold' }}
           ></i>
         ) : (
           box7.icon === 'o' && (
             <i
               className='far fa-circle fa-3x'
-              style={{ color: box7.user === name && 'red' }}
+              style={{ color: box7.user === name && 'gold' }}
             ></i>
           )
         )}
       </div>
       <div
-        className='box box-8'
+        className={`box box-8 ${
+          (winPiece1 === 8 || winPiece2 === 8 || winPiece3 === 8) && won
+            ? 'you-win'
+            : (winPiece1 === 8 || winPiece2 === 8 || winPiece3 === 8) && lost
+            ? 'you-lose'
+            : null
+        }`}
         onClick={users.length === 2 && allowed ? box_8_clicked : null}
       >
         {box8.icon === 'x' ? (
           <i
             className='fas fa-times fa-3x'
-            style={{ color: box8.user === name && 'red' }}
+            style={{ color: box8.user === name && 'gold' }}
           ></i>
         ) : (
           box8.icon === 'o' && (
             <i
               className='far fa-circle fa-3x'
-              style={{ color: box8.user === name && 'red' }}
+              style={{ color: box8.user === name && 'gold' }}
             ></i>
           )
         )}
       </div>
       <div
-        className='box box-9'
+        className={`box box-9 ${
+          (winPiece1 === 9 || winPiece2 === 9 || winPiece3 === 9) && won
+            ? 'you-win'
+            : (winPiece1 === 9 || winPiece2 === 9 || winPiece3 === 9) && lost
+            ? 'you-lose'
+            : null
+        }`}
         onClick={users.length === 2 && allowed ? box_9_clicked : null}
       >
         {box9.icon === 'x' ? (
           <i
             className='fas fa-times fa-3x'
-            style={{ color: box9.user === name && 'red' }}
+            style={{ color: box9.user === name && 'gold' }}
           ></i>
         ) : (
           box9.icon === 'o' && (
             <i
               className='far fa-circle fa-3x'
-              style={{ color: box9.user === name && 'red' }}
+              style={{ color: box9.user === name && 'gold' }}
             ></i>
           )
         )}
@@ -298,6 +360,7 @@ export default connect(
     allowToMakeMove,
     disallowToMakeMove,
     goesFirst,
+    checkForWinner,
     display_board_ttt
   }
 )(TicTacToeBoard);
