@@ -10,7 +10,8 @@ import {
   PLAYER_WON,
   OPONENT_WON,
   REMATCH,
-  ONE_PLAYER_LEFT
+  ONE_PLAYER_LEFT,
+  DRAW
 } from '../actions/types';
 
 const initialState = {
@@ -44,7 +45,8 @@ const initialState = {
   winPiece3: null,
   winner: null,
   won: null,
-  lost: null
+  lost: null,
+  draw: null
 };
 
 export default (state = initialState, action) => {
@@ -112,6 +114,11 @@ export default (state = initialState, action) => {
         won: false,
         lost: true
       };
+    case DRAW:
+      return {
+        ...state,
+        draw: true
+      };
     case REMATCH:
       return {
         ...state,
@@ -120,6 +127,7 @@ export default (state = initialState, action) => {
         winPiece3: null,
         won: false,
         lost: false,
+        draw: false,
         winner: null,
         nextPlayer: null
       };

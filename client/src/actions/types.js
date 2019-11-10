@@ -13,6 +13,7 @@ export const GET_INITIAL_BOARD = 'GET_INITIAL_BOARD';
 export const GET_BOARD = 'GET_BOARD';
 export const DELETE_BOARD = 'DELETE_BOARD';
 
+export const DRAW = 'DRAW';
 export const PLAYER_WON = 'PLAYER_WON';
 export const OPONENT_WON = 'OPONENT_WON';
 export const REMATCH = 'REMATCH';

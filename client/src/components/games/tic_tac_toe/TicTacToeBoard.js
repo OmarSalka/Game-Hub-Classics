@@ -33,7 +33,8 @@ const TicTacToeBoard = ({
     winPiece2,
     winPiece3,
     won,
-    lost
+    lost,
+    draw
   },
   make_move_ttt,
   allowToMakeMove,
@@ -45,7 +46,7 @@ const TicTacToeBoard = ({
 }) => {
   useEffect(() => {
     display_board_ttt(socket);
-    checkForWinner(ttt_BoardData, name);
+    checkForWinner(ttt_BoardData, name, users);
     oponent_left(socket);
     // eslint-disable-next-line
   }, [ttt_BoardData]);
@@ -372,7 +373,7 @@ const TicTacToeBoard = ({
             )
           )}
         </div>
-        {won || lost ? <PopUp /> : null}
+        {won || lost || draw ? <PopUp /> : null}
       </div>
     </Fragment>
   );

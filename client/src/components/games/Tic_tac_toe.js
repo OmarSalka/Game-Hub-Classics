@@ -12,17 +12,15 @@ import { disconnect_socket } from '../../actions/socketRoutingActions';
 
 const Tic_tac_toe = ({
   socketRouting: { name, users, socket },
-  ticTacToe: { nextPlayer, firstMove, won, lost },
+  ticTacToe: { nextPlayer, firstMove, won, lost, draw },
   display_message,
   disconnect_socket
 }) => {
   useEffect(() => {
     display_message(socket);
-    // display_board_ttt(socket);
 
     return () => {
       disconnect_socket(socket);
-      // delete_board(socket, room);
     };
     // eslint-disable-next-line
   }, [socket]);
@@ -48,6 +46,8 @@ const Tic_tac_toe = ({
                 <p>You win!!</p>
               ) : lost ? (
                 <p>You lose</p>
+              ) : draw ? (
+                <p>It's a draw!</p>
               ) : nextPlayer && nextPlayer === name ? (
                 <p>It's your turn!</p>
               ) : nextPlayer && nextPlayer !== name ? (

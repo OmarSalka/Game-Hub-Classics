@@ -9,7 +9,8 @@ import {
   OPONENT_WON,
   REMATCH,
   ONE_PLAYER_LEFT,
-  DELETE_BOARD
+  DELETE_BOARD,
+  DRAW
 } from './types';
 
 // make move
@@ -47,12 +48,17 @@ export const disallowToMakeMove = () => {
   return { type: DISALLOW_TO_PLAY };
 };
 
-export const checkForWinner = (ttt_boardData, currentPlayer) => dispatch => {
+export const checkForWinner = (
+  ttt_boardData,
+  currentPlayer,
+  users
+) => dispatch => {
   let win = false;
   let winner;
   let winningPiece1;
   let winningPiece2;
   let winningPiece3;
+  let draw = false;
 
   const [b1, b2, b3, b4, b5, b6, b7, b8, b9] = ttt_boardData;
 
@@ -116,6 +122,23 @@ export const checkForWinner = (ttt_boardData, currentPlayer) => dispatch => {
     winningPiece2 = b5.id;
     winningPiece3 = b7.id;
   }
+
+  //  draw
+  if (
+    b1.icon !== null &&
+    b2.icon !== null &&
+    b3.icon !== null &&
+    b4.icon !== null &&
+    b5.icon !== null &&
+    b6.icon !== null &&
+    b7.icon !== null &&
+    b8.icon !== null &&
+    b9.icon !== null &&
+    !win
+  ) {
+    draw = true;
+  }
+
   // Win pattern found
   if (win) {
     if (currentPlayer === winner) {
@@ -123,15 +146,25 @@ export const checkForWinner = (ttt_boardData, currentPlayer) => dispatch => {
         type: PLAYER_WON,
         payload: { winningPiece1, winningPiece2, winningPiece3, winner }
       });
-      dispatch({
-        type: GOES_FIRST
-      });
     }
     currentPlayer !== winner &&
       dispatch({
         type: OPONENT_WON,
         payload: { winningPiece1, winningPiece2, winningPiece3, winner }
       });
+    dispatch({
+      type: GOES_FIRST
+    });
+  }
+  // It's a draw
+  if (draw) {
+    console.log("it's a draw");
+    dispatch({
+      type: DRAW
+    });
+    const randomlySelectedPlayer =
+      users[Math.floor(Math.random() * users.length)].name;
+    currentPlayer === randomlySelectedPlayer && dispatch({ type: GOES_FIRST });
   }
 };
 

@@ -29,7 +29,7 @@ const PopUp = ({
       <div className='popup-inner'>
         <div className='play-again' onClick={!playAgain ? playAgain_ : null}>
           {playAgain ? (
-            'Waiting on oponent...'
+            'Waiting for oponent...'
           ) : (
             <span>
               Play Again <i className='fas fa-redo'></i>
