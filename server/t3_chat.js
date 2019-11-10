@@ -1,15 +1,19 @@
 module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
-  // const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
-
   const { addUser, removeUser, getUser, getUsersInRoom } = userMethods;
-  const { getRoomBoard, createBoard, editBox, deleteBoard } = ttt_boardMethods;
+  const {
+    addToPlayAgainList,
+    cleanPlayAgainList,
+    getRoomBoard,
+    createBoard,
+    editBox,
+    resetBoard,
+    deleteBoard
+  } = ttt_boardMethods;
   let allowedPlayer;
 
   io.on('connect', socket => {
     socket.on('join', ({ name, room }, callback) => {
-      // console.log(name, room);
       const { error, user } = addUser({ id: socket.id, name, room });
-      // console.log(`error: ${error}`);
 
       if (error) return callback(error);
 
@@ -28,24 +32,12 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
         text: `${user.name} just joined`
       });
 
-      // ===========================================================================================
-
       // create tic tac toe board data
-      createBoard(user.room);
-      // io.to(user.room).emit('create board', {
-      //   ttt_board: createBoard(user.room)
-      // });
-
-      // ===========================================================================================
-
-      io.in(user.room).emit('empty board', {
-        ticTacToe_board: getRoomBoard(user.room)
+      const emptyBoard = createBoard(user.room);
+      socket.emit('display board', {
+        ticTacToe_board: emptyBoard,
+        nextPlayer: null
       });
-      // socket.on('create board', () => {
-      //   createBoard(user.room);
-      // });
-
-      // ===========================================================================================
 
       io.to(user.room).emit('room data', {
         room: user.room,
@@ -58,29 +50,23 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
     // when sending text
     socket.on('send message', msg => {
       const user = getUser(socket.id);
-      // console.log('send message:', user);
 
       io.to(user.room).emit('message', {
         id: uuid.v4(),
         user: user.name,
         text: msg
       });
-      // io.to(user.room).emit('room data', {
-      //   room: user.room,
-      //   users: getUsersInRoom(user.room)
-      // });
     });
 
     // ===========================================================================================
     // let allowedPlayer;
     socket.on('make move', ({ firstMove, data, oponent }) => {
+      console.log('allowed', allowedPlayer);
       if (firstMove || data.user === allowedPlayer) {
         const users = getUsersInRoom(data.room);
         if (users.length === 2) {
           const updatedBoard = editBox(data);
-          // io.to(user.room).emit('display board', {
-          //   updatedBoard
-          // });
+
           io.to(data.room).emit('display board', {
             ticTacToe_board: updatedBoard,
             nextPlayer: oponent
@@ -90,12 +76,24 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
       }
     });
 
-    // ===========================================================================================
+    // play again
+    socket.on('play again', ({ name, room }) => {
+      const who_want_to_play = addToPlayAgainList({ name, room });
+      if (who_want_to_play.length === 2) {
+        const newBoard = resetBoard(room);
 
-    // socket.on('edit ttt_board', ({ id, icon, user, room }, callback) => {
-    //   const edited = editBox({ id, icon, user, room });
-    //   if (edited) return callback(edited);
-    // });
+        io.to(room).emit('replay game');
+
+        io.to(room).emit('display board', {
+          ticTacToe_board: newBoard,
+          nextPlayer: null
+        });
+
+        cleanPlayAgainList({ room });
+      }
+    });
+
+    // ===========================================================================================
 
     socket.on('delete board', ({ room }) => {
       console.log('deleting board...');
@@ -121,10 +119,23 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
           room: user.room,
           users: getUsersInRoom(user.room)
         });
-        const board = deleteBoard(user.room);
-        if (board) {
-          io.to(user.room).emit('delete board');
+        deleteBoard(user.room);
+        console.log('testing testing....');
+        console.log(getRoomBoard(user.room));
+        const users = getUsersInRoom(user.room);
+        let board;
+        if (users.length === 1) {
+          board = createBoard(user.room);
+          // io.to(user.room).emit('display board', {
+          //   ticTacToe_board: board,
+          //   nextPlayer: null
+          // });
+          io.to(user.room).emit('one player left');
         }
+        io.to(user.room).emit('display board', {
+          ticTacToe_board: board,
+          nextPlayer: null
+        });
       }
     });
   });

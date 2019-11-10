@@ -6,29 +6,30 @@ import {
   GOES_FIRST,
   MADE_FIRST_MOVE,
   PLAYER_WON,
-  OPONENT_WON
+  OPONENT_WON,
+  REMATCH,
+  ONE_PLAYER_LEFT,
+  DELETE_BOARD
 } from './types';
 
 // make move
 export const make_move_ttt = (socket, data, firstMove, oponent) => dispatch => {
-  // console.log(data);
   socket.emit('make move', { firstMove, data, oponent });
   if (firstMove) dispatch({ type: MADE_FIRST_MOVE });
-  // data = { id, icon, user, room }
-  // dispatch(display_board_ttt(socket));
 };
 
 // display board
-export const display_board_ttt = (socket, currentPlayer) => dispatch => {
+export const display_board_ttt = socket => dispatch => {
   socket.on('display board', ({ ticTacToe_board, nextPlayer }) => {
     dispatch({
       type: GET_BOARD,
       payload: ticTacToe_board
     });
-    dispatch({
-      type: ASSIGN_NEXT_TURN,
-      payload: nextPlayer
-    });
+    nextPlayer &&
+      dispatch({
+        type: ASSIGN_NEXT_TURN,
+        payload: nextPlayer
+      });
   });
 };
 
@@ -45,13 +46,6 @@ export const allowToMakeMove = () => {
 export const disallowToMakeMove = () => {
   return { type: DISALLOW_TO_PLAY };
 };
-
-// export const allowToMakeMove = (name, nextPlayer) => {
-//   if (name === nextPlayer) return { type: ALLOW_TO_PLAY };
-//   else {
-//     return { type: DISALLOW_TO_PLAY };
-//   }
-// };
 
 export const checkForWinner = (ttt_boardData, currentPlayer) => dispatch => {
   let win = false;
@@ -127,15 +121,43 @@ export const checkForWinner = (ttt_boardData, currentPlayer) => dispatch => {
     console.log(`1: ${winningPiece1}`);
     console.log(`2: ${winningPiece2}`);
     console.log(`3: ${winningPiece3}`);
-    currentPlayer === winner &&
+    if (currentPlayer === winner) {
       dispatch({
         type: PLAYER_WON,
-        payload: { winningPiece1, winningPiece2, winningPiece3 }
+        payload: { winningPiece1, winningPiece2, winningPiece3, winner }
       });
+      dispatch({
+        type: GOES_FIRST
+      });
+    }
     currentPlayer !== winner &&
       dispatch({
         type: OPONENT_WON,
-        payload: { winningPiece1, winningPiece2, winningPiece3 }
+        payload: { winningPiece1, winningPiece2, winningPiece3, winner }
       });
   }
+};
+
+export const want_to_play_again = (socket, name, room) => dispatch => {
+  socket.emit('play again', { name, room });
+};
+
+export const rematch = socket => dispatch => {
+  socket.on('replay game', () => {
+    dispatch({
+      type: REMATCH
+    });
+  });
+};
+
+export const oponent_left = socket => dispatch => {
+  socket.on('one player left', () => {
+    dispatch({ type: ONE_PLAYER_LEFT });
+  });
+};
+
+export const clear_board = () => {
+  return {
+    type: DELETE_BOARD
+  };
 };

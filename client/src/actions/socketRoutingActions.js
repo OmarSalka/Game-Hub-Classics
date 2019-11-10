@@ -10,12 +10,11 @@ import {
   CHANGE_ICON
 } from './types';
 import { errorLogger } from './alertActions';
-// import { create_board, display_board } from './ticTacToeActions';
 import { delete_chat } from './chatActions';
 import {
+  clear_board,
   make_move_ttt,
   display_board_ttt
-  //  delete_board
 } from './ticTacToeActions';
 
 import io from 'socket.io-client';
@@ -49,21 +48,12 @@ export const join = (joinData, game) => dispatch => {
     });
   });
 
-  // socket.on('room data', roomData => {
-  //   const { room, users } = roomData;
-  //   dispatch({
-  //     type: GET_ROOM_DATA,
-  //     payload: users
-  //   });
-  // });
-
   dispatch({
     type: JOIN,
     payload: { name, room, socket }
   });
 
   dispatch(getOnlineUsers(name));
-  // dispatch(emptyTicTacToeBoard(socket));
 };
 
 // get online users
@@ -81,18 +71,6 @@ export const getOnlineUsers = name => dispatch => {
   });
 };
 
-// empty tic tac toe board
-// export const emptyTicTacToeBoard = socket => dispatch => {
-//   console.log('initial board displayed');
-//   socket.once('empty board', ({ ticTacToe_board }) => {
-//     console.log(ticTacToe_board);
-//     dispatch({
-//       type: GET_INITIAL_BOARD,
-//       payload: ticTacToe_board
-//     });
-//   });
-// };
-
 // display message
 export const display_message = () => dispatch => {
   socket.on('message', message => {
@@ -109,11 +87,6 @@ export const send_message = textMessage => {
   socket.emit('send message', textMessage);
 };
 
-// make move
-// export const make_move = data => dispatch => {
-//   dispatch(make_move_ttt(socket, data));
-// };
-
 // disconnect
 export const disconnect_socket = (socket, room) => dispatch => {
   socket.disconnect();
@@ -121,4 +94,5 @@ export const disconnect_socket = (socket, room) => dispatch => {
     type: DISCONNECT
   });
   dispatch(delete_chat());
+  dispatch(clear_board());
 };

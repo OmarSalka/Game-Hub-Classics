@@ -15,7 +15,9 @@ export const DELETE_BOARD = 'DELETE_BOARD';
 
 export const PLAYER_WON = 'PLAYER_WON';
 export const OPONENT_WON = 'OPONENT_WON';
+export const REMATCH = 'REMATCH';
 
+export const ONE_PLAYER_LEFT = 'ONE_PLAYER_LEFT';
 export const DISCONNECT = 'DISCONNECT';
 
 export const ERROR = 'ERROR';

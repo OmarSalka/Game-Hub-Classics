@@ -8,7 +8,9 @@ import {
   DISALLOW_TO_PLAY,
   ASSIGN_NEXT_TURN,
   PLAYER_WON,
-  OPONENT_WON
+  OPONENT_WON,
+  REMATCH,
+  ONE_PLAYER_LEFT
 } from '../actions/types';
 
 const initialState = {
@@ -40,6 +42,7 @@ const initialState = {
   winPiece1: null,
   winPiece2: null,
   winPiece3: null,
+  winner: null,
   won: null,
   lost: null
 };
@@ -64,7 +67,8 @@ export default (state = initialState, action) => {
     case GOES_FIRST:
       return {
         ...state,
-        firstMove: true
+        firstMove: true,
+        allowed: true
       };
     case MADE_FIRST_MOVE:
       return {
@@ -93,6 +97,7 @@ export default (state = initialState, action) => {
         winPiece1: action.payload.winningPiece1,
         winPiece2: action.payload.winningPiece2,
         winPiece3: action.payload.winningPiece3,
+        winner: action.payload.winner,
         won: true,
         lost: false
       };
@@ -103,24 +108,25 @@ export default (state = initialState, action) => {
         winPiece1: action.payload.winningPiece1,
         winPiece2: action.payload.winningPiece2,
         winPiece3: action.payload.winningPiece3,
+        winner: action.payload.winner,
         won: false,
         lost: true
       };
-    case DELETE_BOARD:
+    case REMATCH:
       return {
         ...state,
-        ttt_BoardData: null,
-        box1: { id: 1, icon: null, user: null },
-        box2: { id: 2, icon: null, user: null },
-        box3: { id: 3, icon: null, user: null },
-        box4: { id: 4, icon: null, user: null },
-        box5: { id: 5, icon: null, user: null },
-        box6: { id: 6, icon: null, user: null },
-        box7: { id: 7, icon: null, user: null },
-        box8: { id: 8, icon: null, user: null },
-        box9: { id: 9, icon: null, user: null },
-        allowed: false
+        winPiece1: null,
+        winPiece2: null,
+        winPiece3: null,
+        won: false,
+        lost: false,
+        winner: null,
+        nextPlayer: null
       };
+    case DELETE_BOARD:
+    case ONE_PLAYER_LEFT:
+      return initialState;
+
     default:
       return state;
   }
