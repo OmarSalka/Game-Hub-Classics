@@ -3,7 +3,6 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
   const {
     addToPlayAgainList,
     cleanPlayAgainList,
-    getRoomBoard,
     createBoard,
     editBox,
     resetBoard,
@@ -58,10 +57,8 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
       });
     });
 
-    // ===========================================================================================
     // let allowedPlayer;
     socket.on('make move', ({ firstMove, data, oponent }) => {
-      console.log('allowed', allowedPlayer);
       if (firstMove || data.user === allowedPlayer) {
         const users = getUsersInRoom(data.room);
         if (users.length === 2) {
@@ -93,20 +90,8 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
       }
     });
 
-    // ===========================================================================================
-
-    socket.on('delete board', ({ room }) => {
-      console.log('deleting board...');
-      deleteBoard(room);
-      io.to(room).emit('display board', {
-        ticTacToe_board: updatedBoard,
-        nextPlayer: null
-      });
-    });
-
     // when leaving
     socket.on('disconnect', () => {
-      console.log('server socket disconnecting...');
       const user = removeUser(socket.id);
 
       if (user) {
@@ -120,8 +105,6 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
           users: getUsersInRoom(user.room)
         });
         deleteBoard(user.room);
-        console.log('testing testing....');
-        console.log(getRoomBoard(user.room));
         const users = getUsersInRoom(user.room);
         let board;
         if (users.length === 1) {

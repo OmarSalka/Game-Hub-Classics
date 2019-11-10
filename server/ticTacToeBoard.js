@@ -79,7 +79,6 @@ const editBox = ({ id, icon, user, room }) => {
 
 const deleteBoard = room => {
   const index = board.find(roomBoard => roomBoard.room === room);
-  console.log(index);
   if (index !== -1) return board.splice(index, 1)[0];
 };
 

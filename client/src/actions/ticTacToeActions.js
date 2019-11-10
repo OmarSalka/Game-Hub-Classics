@@ -118,9 +118,6 @@ export const checkForWinner = (ttt_boardData, currentPlayer) => dispatch => {
   }
   // Win pattern found
   if (win) {
-    console.log(`1: ${winningPiece1}`);
-    console.log(`2: ${winningPiece2}`);
-    console.log(`3: ${winningPiece3}`);
     if (currentPlayer === winner) {
       dispatch({
         type: PLAYER_WON,

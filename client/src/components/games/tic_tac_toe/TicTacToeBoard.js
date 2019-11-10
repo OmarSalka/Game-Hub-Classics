@@ -51,25 +51,16 @@ const TicTacToeBoard = ({
   }, [ttt_BoardData]);
 
   useEffect(() => {
-    return () => {
-      console.log('board unmounted');
-    };
-  }, []);
-
-  useEffect(() => {
     if (name === nextPlayer) allowToMakeMove();
     if (name !== nextPlayer && !firstMove) disallowToMakeMove();
   }, [nextPlayer]);
 
-  console.log('testing condition');
-  console.log(firstMove && users.length === 2);
   useEffect(() => {
     users[0].name === name && goesFirst();
     if (firstMove && users.length === 2) allowToMakeMove();
   }, [users]);
 
   const box_1_clicked = () => {
-    console.log('clicked');
     make_move_ttt(
       socket,
       { id: 1, user: name, icon, room },
