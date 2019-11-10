@@ -40,6 +40,19 @@
     font-weight: bolder;
   }
 
+  /* About =============== */
+  #about {
+    /* height: 120vh; */
+  }
+
+  #about-container {
+    padding: 1rem !important;
+  }
+
+  #about i {
+    font-size: 7rem;
+  }
+
   /* Home =============== */
 
   .img-hover-zoom {
@@ -50,6 +63,12 @@
     font-size: 1.5rem;
   }
 
+  .games {
+    grid-template-columns: 1fr;
+    margin-bottom: 1rem;
+    /* gap: 3rem; */
+  }
+
   .games h2 {
     font-size: 1rem;
   }
@@ -58,8 +77,29 @@
     margin-bottom: 1rem;
   }
 
+  .img-hover-zoom {
+    /* border-radius: 10px;
+    overflow: hidden; */
+    width: 15rem;
+  }
+
+  .img-hover-zoom img {
+    /* border-radius: 10px;
+    width: 100%; */
+    height: 15rem;
+  }
+
   .screenSize {
     height: 100%;
+  }
+
+  /* Join Page */
+  .greetings {
+    margin-top: 1rem;
+  }
+
+  #join input {
+    border-radius: 10px;
   }
 
   /* TIC TAC TOE */
@@ -69,6 +109,8 @@
 
   .game-space {
     margin-bottom: 1rem;
+    width: 100vw;
+    border-radius: 0px;
   }
 
   .game-chat-layout {
@@ -80,11 +122,7 @@
   }
 
   .tic-tac-toe-board {
-    margin: 2rem;
-  }
-
-  .box {
-    padding: 2rem;
+    margin: 1rem 0rem;
   }
 
   .chat-box {

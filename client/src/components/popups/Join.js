@@ -43,7 +43,7 @@ const Join = ({
 
   return (
     <div id='join'>
-      <h1>Welcome!</h1>
+      <h1 className='greetings'>Welcome!</h1>
       <form onSubmit={onSubmit} className='form-sm'>
         <Alert />
         <label htmlFor='name'>Enter name:</label>

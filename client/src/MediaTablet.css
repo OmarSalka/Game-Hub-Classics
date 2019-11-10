@@ -19,6 +19,17 @@
 
 /* Unique to Ipad only*/
 @media (max-width: 900px) {
+  .img-hover-zoom {
+    /* border-radius: 10px;
+    overflow: hidden; */
+    width: 15rem;
+  }
+
+  .img-hover-zoom img {
+    /* border-radius: 10px;
+    width: 100%; */
+    height: 15rem;
+  }
   .chat-content {
     /* height: 36vh; */
   }

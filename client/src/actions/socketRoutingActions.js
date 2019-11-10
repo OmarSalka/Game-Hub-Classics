@@ -4,18 +4,11 @@ import {
   DB_JOIN_SUCCESS,
   DISCONNECT,
   DISPLAY_WELCOME_MESSAGE,
-  GET_ROOM_DATA,
-  GET_INITIAL_BOARD,
-  GET_BOARD,
-  CHANGE_ICON
+  GET_ROOM_DATA
 } from './types';
 import { errorLogger } from './alertActions';
 import { delete_chat } from './chatActions';
-import {
-  clear_board,
-  make_move_ttt,
-  display_board_ttt
-} from './ticTacToeActions';
+import { clear_board } from './ticTacToeActions';
 
 import io from 'socket.io-client';
 
@@ -31,11 +24,9 @@ export const join = (joinData, game) => dispatch => {
     if (error) {
       dispatch(errorLogger({ type: 'danger', msg: error }));
     } else {
-      {
-        game === 'tic_tac_toe'
-          ? dispatch({ type: T3_JOIN_SUCCESS })
-          : game === 'dots_boxes' && dispatch({ type: DB_JOIN_SUCCESS });
-      }
+      game === 'tic_tac_toe'
+        ? dispatch({ type: T3_JOIN_SUCCESS })
+        : game === 'dots_boxes' && dispatch({ type: DB_JOIN_SUCCESS });
     }
   });
 
@@ -59,7 +50,7 @@ export const join = (joinData, game) => dispatch => {
 // get online users
 export const getOnlineUsers = name => dispatch => {
   socket.on('room data', roomData => {
-    const { room, users } = roomData;
+    const { users } = roomData;
     const existingOponent = users.find(user => user.name !== name);
     const icon = users.find(user => user.name === name).icon;
     let oponent;
@@ -88,7 +79,7 @@ export const send_message = textMessage => {
 };
 
 // disconnect
-export const disconnect_socket = (socket, room) => dispatch => {
+export const disconnect_socket = socket => dispatch => {
   socket.disconnect();
   dispatch({
     type: DISCONNECT

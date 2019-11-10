@@ -16,6 +16,7 @@ const PopUp = ({
     return () => {
       setPlayAgain(false);
     };
+    // eslint-disable-next-line
   }, [ttt_BoardData]);
 
   const playAgain_ = () => {

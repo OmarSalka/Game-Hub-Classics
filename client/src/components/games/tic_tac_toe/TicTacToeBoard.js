@@ -10,7 +10,6 @@ import {
   oponent_left
 } from '../../../actions/ticTacToeActions';
 import PopUp from './PopUp';
-import { Socket } from 'net';
 
 // import Box from './Box';
 
@@ -48,16 +47,19 @@ const TicTacToeBoard = ({
     display_board_ttt(socket);
     checkForWinner(ttt_BoardData, name);
     oponent_left(socket);
+    // eslint-disable-next-line
   }, [ttt_BoardData]);
 
   useEffect(() => {
     if (name === nextPlayer) allowToMakeMove();
     if (name !== nextPlayer && !firstMove) disallowToMakeMove();
+    // eslint-disable-next-line
   }, [nextPlayer]);
 
   useEffect(() => {
     users[0].name === name && goesFirst();
     if (firstMove && users.length === 2) allowToMakeMove();
+    // eslint-disable-next-line
   }, [users]);
 
   const box_1_clicked = () => {

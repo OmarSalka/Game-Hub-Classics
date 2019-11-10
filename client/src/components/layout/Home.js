@@ -1,6 +1,7 @@
 import React from 'react';
 import tic_tac_toe_image from '../../img/tic-tac-toe.jpg';
-import dots_boxes_image from '../../img/dots-boxes.JPG';
+// import dots_boxes_image from '../../img/dots-boxes.JPG';
+import coming_soon from '../../img/soon1-1.png';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -8,21 +9,37 @@ const Home = () => {
     <div id='home' className='container homeFlex screenSize'>
       <h1 className='primary-header'>Play, chat, or do both!</h1>
       <div className='games'>
-        <div>
-          <Link to='/join/t3'>
-            <div className='img-hover-zoom'>
+        <div className='game-item'>
+          <div className='img-hover-zoom'>
+            <Link to='/join/t3'>
               <img src={tic_tac_toe_image} alt='Oops' />
-            </div>
-          </Link>
+            </Link>
+          </div>
           <h2>Tic - Tac - Toe</h2>
         </div>
-        <div>
-          <Link to='/dots-boxes'>
-            <div className='img-hover-zoom'>
-              <img src={dots_boxes_image} alt='Oops' />
-            </div>
-          </Link>
+        <div className='game-item'>
+          <div className='img-hover-zoom'>
+            {/* <Link to='/dots-boxes'> */}
+            <img src={coming_soon} alt='Oops' />
+            {/* </Link> */}
+          </div>
           <h2>Dots - {'&'} - Boxes</h2>
+        </div>
+        <div className='game-item'>
+          <div className='img-hover-zoom'>
+            {/* <Link to='/four-row'> */}
+            <img src={coming_soon} alt='Oops' />
+            {/* </Link> */}
+          </div>
+          <h2>4 - in - a - Row</h2>
+        </div>
+        <div className='game-item'>
+          <div className='img-hover-zoom'>
+            {/* <Link to='/chutes-ladders'> */}
+            <img src={coming_soon} alt='Oops' />
+            {/* </Link> */}
+          </div>
+          <h2>Chutes - {'&'} - Ladders</h2>
         </div>
       </div>
     </div>

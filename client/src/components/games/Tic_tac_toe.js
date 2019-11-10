@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ChatArea from '../chat/ChatArea';
 import ChatForm from '../chat/ChatForm';
 import OnlinePlayers from '../roomData/OnlinePlayers';
@@ -7,26 +7,14 @@ import TicTacToeBoard from './tic_tac_toe/TicTacToeBoard';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { display_message, send_message } from '../../actions/chatActions';
-import {
-  delete_board,
-  display_board_ttt
-} from '../../actions/ticTacToeActions';
+import { display_board_ttt } from '../../actions/ticTacToeActions';
 import { disconnect_socket } from '../../actions/socketRoutingActions';
 
 const Tic_tac_toe = ({
-  socketRouting: {
-    oponent,
-    name,
-    room,
-    users,
-    socket,
-    is_Authenticated,
-    tic_tac_toe
-  },
+  socketRouting: { name, users, socket },
   ticTacToe: { nextPlayer, firstMove, won, lost },
   display_message,
-  disconnect_socket,
-  display_board_ttt
+  disconnect_socket
 }) => {
   useEffect(() => {
     display_message(socket);
