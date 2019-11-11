@@ -5,6 +5,7 @@ import './MediaMobile.css';
 import Navbar from './components/layout/Navbar';
 import Home from './components/layout/Home';
 import About from './components/layout/About';
+import Contact from './components/layout/Contact';
 import Join from './components/popups/Join';
 import Tic_tac_toe from './components/games/Tic_tac_toe';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -25,6 +26,7 @@ const App = () => {
             <Switch>
               <Home exact path='/' component={Home} />
               <About exact path='/about' component={About} />
+              <Contact exact path='/contact' component={Contact} />
               <Route path={['/join/t3', '/join/db']} component={Join} />
               <PrivateRoute path='/tic-tac-toe' component={Tic_tac_toe} />
               <Route component={PageNotFound} />
