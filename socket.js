@@ -116,6 +116,9 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
           board = createBoard(user.room);
           io.to(user.room).emit('one player left');
         }
+        if (users.length === 0) {
+          cleanPlayAgainList(user.room);
+        }
         io.to(user.room).emit('display board', {
           ticTacToe_board: board,
           nextPlayer: null
