@@ -63,7 +63,6 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
         const users = getUsersInRoom(data.room);
         if (users.length === 2) {
           const updatedBoard = editBox(data);
-
           io.to(data.room).emit('display board', {
             ticTacToe_board: updatedBoard,
             nextPlayer: oponent
@@ -74,12 +73,18 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
     });
 
     // play again
-    socket.on('play again', ({ name, room }) => {
+    socket.on('play again', ({ name, room, draw }) => {
       const who_want_to_play = addToPlayAgainList({ name, room });
       if (who_want_to_play.length === 2) {
         const newBoard = resetBoard(room);
-
-        io.to(room).emit('replay game');
+        let randomlySelectedPlayer;
+        if (draw) {
+          randomlySelectedPlayer =
+            who_want_to_play[
+              Math.floor(Math.random() * who_want_to_play.length)
+            ].name;
+        }
+        io.to(room).emit('replay game', { randomlySelectedPlayer });
 
         io.to(room).emit('display board', {
           ticTacToe_board: newBoard,
@@ -109,10 +114,6 @@ module.exports = (io, uuid, userMethods, ttt_boardMethods) => {
         let board;
         if (users.length === 1) {
           board = createBoard(user.room);
-          // io.to(user.room).emit('display board', {
-          //   ticTacToe_board: board,
-          //   nextPlayer: null
-          // });
           io.to(user.room).emit('one player left');
         }
         io.to(user.room).emit('display board', {

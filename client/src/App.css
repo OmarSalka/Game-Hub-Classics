@@ -102,6 +102,8 @@ input:focus {
 input[type='text'],
 input[type='password'] {
   padding: 0.2rem;
+  padding: 0rem 0.5rem;
+  border: none;
 }
 /* Buttons */
 

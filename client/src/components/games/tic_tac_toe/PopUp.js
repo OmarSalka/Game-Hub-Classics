@@ -6,13 +6,13 @@ import { want_to_play_again, rematch } from '../../../actions/ticTacToeActions';
 const PopUp = ({
   socketRouting: { socket, name, room },
   want_to_play_again,
-  ticTacToe: { ttt_BoardData },
+  ticTacToe: { ttt_BoardData, draw },
   rematch
 }) => {
   const [playAgain, setPlayAgain] = useState(false);
 
   useEffect(() => {
-    rematch(socket);
+    rematch(socket, name);
     return () => {
       setPlayAgain(false);
     };
@@ -21,7 +21,7 @@ const PopUp = ({
 
   const playAgain_ = () => {
     setPlayAgain(true);
-    want_to_play_again(socket, name, room);
+    want_to_play_again(socket, name, room, draw);
   };
 
   return (

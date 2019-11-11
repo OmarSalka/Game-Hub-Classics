@@ -98,8 +98,11 @@
     margin-top: 1rem;
   }
 
-  #join input {
+  #join input[type='submit'] {
     border-radius: 10px;
+  }
+  #join input[type='text'] {
+    border-radius: 5px;
   }
 
   /* TIC TAC TOE */

@@ -146,37 +146,36 @@ export const checkForWinner = (
         type: PLAYER_WON,
         payload: { winningPiece1, winningPiece2, winningPiece3, winner }
       });
+      dispatch({
+        type: GOES_FIRST
+      });
     }
     currentPlayer !== winner &&
       dispatch({
         type: OPONENT_WON,
         payload: { winningPiece1, winningPiece2, winningPiece3, winner }
       });
-    dispatch({
-      type: GOES_FIRST
-    });
   }
   // It's a draw
   if (draw) {
-    console.log("it's a draw");
     dispatch({
       type: DRAW
     });
-    const randomlySelectedPlayer =
-      users[Math.floor(Math.random() * users.length)].name;
-    currentPlayer === randomlySelectedPlayer && dispatch({ type: GOES_FIRST });
   }
 };
 
-export const want_to_play_again = (socket, name, room) => dispatch => {
-  socket.emit('play again', { name, room });
+export const want_to_play_again = (socket, name, room, draw) => dispatch => {
+  socket.emit('play again', { name, room, draw });
 };
 
-export const rematch = socket => dispatch => {
-  socket.on('replay game', () => {
+export const rematch = (socket, name) => dispatch => {
+  socket.on('replay game', ({ randomlySelectedPlayer }) => {
     dispatch({
       type: REMATCH
     });
+    if (name === randomlySelectedPlayer) {
+      dispatch({ type: GOES_FIRST });
+    }
   });
 };
 

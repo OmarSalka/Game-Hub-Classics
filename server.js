@@ -6,7 +6,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const uuid = require('uuid');
 
-const chat = require('./chat');
+const socket = require('./socket');
 
 const userMethods = require('./users');
 const ttt_boardMethods = require('./ticTacToeBoard');
@@ -14,7 +14,7 @@ const ttt_boardMethods = require('./ticTacToeBoard');
 // Connect to database
 connectDB();
 
-chat(io, uuid, userMethods, ttt_boardMethods);
+socket(io, uuid, userMethods, ttt_boardMethods);
 
 // Serve static assets in production
 // if (process.env.NODE_ENV === 'production') {
