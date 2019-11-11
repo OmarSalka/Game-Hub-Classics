@@ -176,6 +176,7 @@ export const rematch = (socket, name) => dispatch => {
     if (name === randomlySelectedPlayer) {
       dispatch({ type: GOES_FIRST });
     }
+    console.log('new');
   });
 };
 
