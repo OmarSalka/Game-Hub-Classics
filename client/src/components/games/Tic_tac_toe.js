@@ -11,7 +11,7 @@ import { display_board_ttt } from '../../actions/ticTacToeActions';
 import { disconnect_socket } from '../../actions/socketRoutingActions';
 
 const Tic_tac_toe = ({
-  socketRouting: { name, users, socket },
+  socketRouting: { name, room, users, socket },
   ticTacToe: { nextPlayer, firstMove, won, lost, draw },
   display_message,
   disconnect_socket
@@ -57,7 +57,7 @@ const Tic_tac_toe = ({
               ) : users.length === 2 ? (
                 <p>Your oponent goes first</p>
               ) : (
-                <p>Waiting for your oponent to join...</p>
+                <p>Waiting for your oponent to join room "{room}"</p>
               )}
             </div>
 
