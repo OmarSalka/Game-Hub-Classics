@@ -7,8 +7,6 @@
   --box-hover-background-color: #444343;
   --primary-color: #f4f4f4;
   --secondary-color: #fff;
-  /* --secondary-color: #ff00ff; */
-  --primary-background-color: #14bdac;
   --primary-background-color: #080808a8;
   --hover-background: #f4f4f41c;
   --secondary-background-color: #1da1f2;
@@ -60,7 +58,6 @@ a {
   margin: 0 auto;
   overflow: hidden;
   padding: 2rem;
-  /* text-align: center; */
 }
 
 input {
@@ -196,7 +193,7 @@ input[type='password'] {
 }
 
 #home h1 {
-  margin: 3rem 0rem;
+  margin: 2rem 0rem;
 }
 
 .screenSize {
@@ -204,7 +201,7 @@ input[type='password'] {
 }
 
 .backgroundPic {
-  background: #333 url(./img/ryan-quintal-Q5H8WRXCZyw-unsplash.jpg) no-repeat
+  background: #333 url(./img/white-blocks_squeezed_BrowserWebp.webp) no-repeat
     center center / cover;
   height: 100vh;
 }
@@ -213,6 +210,8 @@ input[type='password'] {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 3rem;
+  padding: 2rem 0rem;
+  border-radius: 20px;
 }
 
 .game-item {
@@ -236,6 +235,8 @@ input[type='password'] {
 }
 
 .img-hover-zoom img {
+  height: 13rem;
+  width: 13rem;
   transition: transform 0.5s ease;
 }
 
@@ -245,8 +246,6 @@ input[type='password'] {
 
 /* >>>>>>>>>>>>>>>>>>>>> About <<<<<<<<<<<<<<<<<<<<*/
 #about-n-contact {
-  /* height: 65vh; */
-  /* height: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -256,7 +255,6 @@ input[type='password'] {
   margin-top: 2rem;
   padding: 1rem 3rem;
   border-radius: 10px;
-  /* height: 50vh; */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -275,7 +273,6 @@ input[type='password'] {
 
 #about-n-contact hr {
   width: 20%;
-  /* margin: auto; */
   margin: 1rem;
   text-align: center;
 }
@@ -344,7 +341,6 @@ input[type='password'] {
 /* ===== Game Box ===== */
 
 .game-box {
-  /* max-height: 65vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -377,7 +373,6 @@ input[type='password'] {
 }
 
 .box {
-  /* padding: 4rem; */
   height: 6.6rem;
   width: 6.6rem;
   display: flex;
@@ -407,13 +402,9 @@ input[type='password'] {
     background: transparent;
     background-color: #03b403;
   }
-  /* 50% { */
-  /* background-color: #006200; */
-  /* } */
   100% {
     background: transparent;
     background: darkgreen;
-    /* background-color: #00cc00; */
   }
 }
 @-moz-keyframes win_color_change {
@@ -421,13 +412,9 @@ input[type='password'] {
     background: transparent;
     background-color: #03b403;
   }
-  /* 50% { */
-  /* background-color: #006200; */
-  /* } */
   100% {
     background: transparent;
     background: darkgreen;
-    /* background-color: #00cc00; */
   }
 }
 @-ms-keyframes win_color_change {
@@ -435,13 +422,9 @@ input[type='password'] {
     background: transparent;
     background-color: #03b403;
   }
-  /* 50% { */
-  /* background-color: #006200; */
-  /* } */
   100% {
     background: transparent;
     background: darkgreen;
-    /* background-color: #00cc00; */
   }
 }
 @-o-keyframes win_color_change {
@@ -449,13 +432,9 @@ input[type='password'] {
     background: transparent;
     background-color: #03b403;
   }
-  /* 50% { */
-  /* background-color: #006200; */
-  /* } */
   100% {
     background: transparent;
     background: darkgreen;
-    /* background-color: #00cc00; */
   }
 }
 @keyframes win_color_change {
@@ -463,13 +442,9 @@ input[type='password'] {
     background: transparent;
     background-color: #03b403;
   }
-  /* 50% { */
-  /* background-color: #006200; */
-  /* } */
   100% {
     background: transparent;
     background: darkgreen;
-    /* background-color: #00cc00; */
   }
 }
 
@@ -488,60 +463,40 @@ input[type='password'] {
 @-webkit-keyframes lose_color_change {
   0% {
     background-color: red;
-    /* background-color: darkred; */
   }
-  /* 50% { */
-  /* } */
   100% {
-    /* background-color: orangered; */
     background: darkred;
   }
 }
 @-moz-keyframes lose_color_change {
   0% {
     background-color: red;
-    /* background-color: darkred; */
   }
-  /* 50% { */
-  /* } */
   100% {
-    /* background-color: orangered; */
     background: darkred;
   }
 }
 @-ms-keyframes lose_color_change {
   0% {
     background-color: red;
-    /* background-color: darkred; */
   }
-  /* 50% { */
-  /* } */
   100% {
-    /* background-color: orangered; */
     background: darkred;
   }
 }
 @-o-keyframes lose_color_change {
   0% {
     background-color: red;
-    /* background-color: darkred; */
   }
-  /* 50% { */
-  /* } */
   100% {
-    /* background-color: orangered; */
     background: darkred;
   }
 }
 @keyframes lose_color_change {
   0% {
     background-color: red;
-    /* background-color: darkred; */
   }
-  /* 50% { */
-  /* } */
   100% {
-    /* background-color: orangered; */
     background: darkred;
   }
 }
@@ -604,7 +559,6 @@ input[type='password'] {
 
 /* Pop Up */
 .popup {
-  /* position: absolute; */
   position: absolute;
   z-index: 2;
   width: 100%;
@@ -623,10 +577,7 @@ input[type='password'] {
   position: relative;
   margin: auto;
   border-radius: 20px;
-  /* background: white; */
   padding: 1rem;
-  /* margin: 1rem; */
-  /* margin-top: 2rem; */
   width: 100%;
   display: flex;
   justify-content: space-evenly;
@@ -668,6 +619,9 @@ input[type='password'] {
   border-bottom: 1px solid grey;
 }
 
+.css-y1c0xs {
+  max-height: 323px;
+}
 .chat-content {
   padding: 0.6rem;
   margin-bottom: 1rem;
@@ -689,10 +643,6 @@ input[type='password'] {
   border-radius: 10px;
   padding: 0.1rem 0.4rem;
 }
-
-/* p {
-  color: #0deb0d;
-} */
 
 .admin-message {
   justify-content: center;

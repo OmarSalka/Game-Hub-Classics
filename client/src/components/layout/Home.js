@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   return (
     <div id='home' className='container homeFlex screenSize'>
-      <h1 className='primary-header'>Play, chat, or do both!</h1>
+      <h1 className='primary-header'>Welcome to GH Classics!</h1>
       <div className='games'>
         <div className='game-item'>
           <div className='img-hover-zoom'>
