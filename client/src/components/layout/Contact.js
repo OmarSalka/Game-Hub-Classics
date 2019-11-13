@@ -38,11 +38,11 @@ const Contact = () => {
             <p>Feel free to reach out!</p>
           </div>
           <div className='contact-icons'>
-            <a href='https://github.com/OmarSalka' target='_blank'>
+            <a href='https://github.com/OmarSalka' target='_blank' rel='noopener noreferrer'>
               <i className='fas fa-code-branch fa-2x'></i>
             </a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href='https://www.linkedin.com/in/omarsalka/' target='_blank'>
+            <a href='https://www.linkedin.com/in/omarsalka/' target='_blank' rel='noopener noreferrer'>
               <i className='fab fa-linkedin fa-2x'></i>
             </a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
