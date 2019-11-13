@@ -16,7 +16,7 @@ let socket;
 const ENDPOINT = `:${process.env.PORT || 5000}`;
 
 export const join = (joinData, game) => dispatch => {
-  socket = io("https://gamehubclassics.com", { secure: true });
+  socket = io("https://gamehubclassics.com:5000", { secure: true });
   // socket = io(ENDPOINT, {secure: true});
   const { name, room } = joinData;
 
