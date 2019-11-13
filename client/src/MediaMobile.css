@@ -12,8 +12,8 @@
   }
 
   .nav-backg-pic {
-    background: #333 url(./img/ryan-quintal-Q5H8WRXCZyw-unsplash.jpg) no-repeat
-      center center / cover;
+    background: #333 url(./img/background-MozJPEG.jpg) no-repeat center center /
+      cover;
   }
 
   .navbar ul {
@@ -34,8 +34,8 @@
 
   /* Join =============== */
   .btn-primary {
-    background: #333 url(./img/ryan-quintal-Q5H8WRXCZyw-unsplash.jpg) no-repeat
-      center center / cover;
+    background: #333 url(./img/background-MozJPEG.jpg) no-repeat center center /
+      cover;
     color: #333;
     font-weight: bolder;
   }

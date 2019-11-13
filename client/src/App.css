@@ -201,7 +201,7 @@ input[type='password'] {
 }
 
 .backgroundPic {
-  background: #333 url(./img/white-blocks_squeezed_BrowserWebp.webp) no-repeat
+  background: #333 url(./img/background-MozJPEG.jpg) no-repeat
     center center / cover;
   height: 100vh;
 }
