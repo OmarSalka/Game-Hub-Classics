@@ -1,5 +1,5 @@
 import React from 'react';
-import tic_tac_toe_image from '../../img/tic-tac-toe-MozJPEG.jpg';
+import tic_tac_toe_image from '../../img/ticTacToe-MozJPEG.jpg';
 // import dots_boxes_image from '../../img/dots-boxes.JPG';
 import coming_soon from '../../img/soon1-1-MozJPEG.jpg';
 import { Link } from 'react-router-dom';
