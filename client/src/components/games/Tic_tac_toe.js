@@ -57,7 +57,7 @@ const Tic_tac_toe = ({
               ) : users.length === 2 ? (
                 <p>Your oponent goes first</p>
               ) : (
-                <p>
+                <p style={{ textAlign: 'center' }}>
                   Request your oponent to enter "{room}" under room name to
                   join... {/*Waiting for your oponent to join room "{room}"*/}
                 </p>
